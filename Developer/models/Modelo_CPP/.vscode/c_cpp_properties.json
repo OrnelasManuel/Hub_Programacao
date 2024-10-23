@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${default}",
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/Developer/include/nlohmann",
+        "${workspaceFolder}/Developer/include/nlohmann/**",
+        "${workspaceFolder}/Developer/include/**",
+        "C:/Users/Usuario/Desktop/Temp/Programacao/C++/MSYS2/**",
+        "C:/Users/Usuario/Desktop/Temp/Programacao/C++/MSYS2/mingw64/include/**",
+        "C:/Users/Usuario/Desktop/Temp/Programacao/C++/MSYS2/mingw64/lib/**",
+        "C:/Users/Usuario/Desktop/Temp/Programacao/C++/MSYS2/mingw64/**",
+        "C:/Users/Usuario/Desktop/Temp/Programacao/C++/MSYS2/mingw64/include/glib-2.0/**",
+        "C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/VC/Tools/MSVC/14.29.30133/include/**",
+        "C:/Users/Usuario/Desktop/Temp/Programacao/C++/MSYS2/mingw64/lib/glib-2.0/include/**"
+      ],
+      "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+      "windowsSdkVersion": "10.0.26100.0",
+      "compilerPath": "cl.exe",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "msvc-x64"
+    }
+  ],
+  "version": 4
+}
