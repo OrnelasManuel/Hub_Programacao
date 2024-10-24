@@ -12,7 +12,6 @@ static void Configuracoes_Projeto_CPP_Sendo_Aberto(void) {
 	if (Validador_De_Abertura_De_Sites) {
 		system("start chrome --profile-directory=\"Profile 1\" --new-window "
 		       "\"https://docs.google.com/document/d/108joth4N6yvUPeh46T_bcd23-YvYKTpdSQu8W3-6UNM/edit?tab=t.0#heading=h.nsq0wihpi6j4\"");
-		system("start chrome \"https://docs.google.com/document/d/1Dw9MxKjNSYqxQu7byFlafLn4YHyvXVy3UFvCWrxKvKw/edit?tab=t.0#heading=h.ckv6il383iz1\"");
 		system("start chrome \"https://docs.google.com/document/d/1lqzBjK0ZtO9Aey428SDF3Ysan88vyTth4L7MgXbJm2U/edit?tab=t.0#heading=h.nsq0wihpi6j4\"");
 		system("start chrome \"https://chat.openai.com/\"");
 	}
