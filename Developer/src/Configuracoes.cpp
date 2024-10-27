@@ -6,52 +6,16 @@
 #include <nlohmann/json.hpp>
 #include <stdio.h>
 #include <unistd.h>
+#include <vector>
 
 extern void Estilizacao_De_Conteudo(void);
 extern void Reativacao_De_Janela_Index(void);
 extern void Criar_Botao_Sessao_Anterior(GtkWidget *window_recebido, GtkWidget *Caixa_Onde_O_Botao_Vai_Ficar, void (*Funcao_De_Ativacao)());
+extern void Atribuicao_De_Valores_Em_Variaveis_Globais(void);
 
 using json = nlohmann::json;
 
 GtkWidget *window_Configuracoes;
-
-GtkWidget *Caixa_De_Input_Caminho_Da_Pasta_Principal;
-GtkWidget *Input_Caminho_Da_Pasta_Principal;
-GtkWidget *Label_Caminho_Da_Pasta_Principal;
-
-GtkWidget *Caixa_De_Checkbox_Abrir_Paginas_Do_Projeto;
-GtkWidget *Checkbox_Abrir_Paginas_Do_Projeto;
-GtkWidget *Label_Abrir_Paginas_Do_Projeto;
-bool Liberacao_De_Checagem_Abrir_Paginas_Do_Projeto = true;
-
-GtkWidget *Caixa_De_Input_Fonte_Padrao_De_Programa;
-GtkWidget *Input_Fonte_Padrao_De_Programa;
-GtkWidget *Label_Fonte_Padrao_De_Programa;
-
-GtkWidget *Caixa_De_Input_Fonte_Saudacao_De_Programa;
-GtkWidget *Input_Fonte_Saudacao_De_Programa;
-GtkWidget *Label_Fonte_Saudacao_De_Programa;
-
-GtkWidget *Caixa_De_Input_Cor_Da_Fonte;
-GtkWidget *Input_Cor_Da_Fonte;
-GtkWidget *Label_Cor_Da_Fonte;
-
-GtkWidget *Caixa_De_Input_Cor_Da_Borda;
-GtkWidget *Input_Cor_Da_Borda;
-GtkWidget *Label_Cor_Da_Borda;
-
-GtkWidget *Caixa_De_Input_Cor_De_Fundo_Da_Janela;
-GtkWidget *Input_Cor_De_Fundo_Da_Janela;
-GtkWidget *Label_Cor_De_Fundo_Da_Janela;
-
-GtkWidget *Caixa_De_Checkbox_Imagens_Aparecendo_Como_Princial;
-GtkWidget *Checkbox_Imagens_Aparecendo_Como_Princial;
-GtkWidget *Label_Imagens_Aparecendo_Como_Princial;
-bool Liberacao_De_Checagem_Imagens_Aparecendo_Como_Princial = true;
-
-GtkWidget *Caixa_De_Input_Tamanho_Da_Fonte;
-GtkWidget *Input_Tamanho_Da_Fonte;
-GtkWidget *Label_Tamanho_Da_Fonte;
 
 GtkWidget *Botao_De_Salvar_Alteracoes;
 GtkWidget *Botao_De_Restaurar_Alteracoes;
@@ -59,104 +23,15 @@ GtkWidget *Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao;
 
 GtkWidget *Caixa_De_Opcoes_De_Configuracao;
 
-std::ifstream Arquivo_Estilizacao("./data/Estilizacao.json");
-json Estilizacao_Configuracao_JSON = json::parse(Arquivo_Estilizacao);
-Configuracao_Estilo Estilizacao_Configuracao(Estilizacao_Configuracao_JSON);
+std::vector<GtkWidget *> Conjunto_Inputs_De_Texto;
+std::vector<GtkWidget *> Conjunto_Inputs_De_Numero;
+std::vector<GtkWidget *> Conjunto_Inputs_De_Checkbox;
 
-std::ifstream Arquivo_Padrao("./data/Configuracoes.json");
-json Padrao_Configuracao_JSON = json::parse(Arquivo_Padrao);
-Configuracao_Padrao Padrao_Configuracao(Padrao_Configuracao_JSON);
-
-static void Salvamento_De_Alteracoes(void) {
-	Arquivo_Padrao.close();
-	Arquivo_Estilizacao.close();
-
-	std::ofstream Arquivo_Padrao_Atualizado("./data/Configuracoes.json");
-	std::ofstream Arquivo_Estilizacao_Atualizado("./data/Estilizacao.json");
-
-	GtkEntry *Input_Caminho_Da_Pasta_Principal_Convertendo = GTK_ENTRY(Input_Caminho_Da_Pasta_Principal);
-	const gchar *Valor_Input_Caminho_Da_Pasta_Principal_Convertendo = gtk_entry_get_text(Input_Caminho_Da_Pasta_Principal_Convertendo);
-
-	GtkToggleButton *Checkbox_Abrir_Paginas_Do_Projeto_Convertendo = GTK_TOGGLE_BUTTON(Checkbox_Abrir_Paginas_Do_Projeto);
-	gboolean Estado_De_Checkbox_Abrir_Paginas_Do_Projeto = gtk_toggle_button_get_active(Checkbox_Abrir_Paginas_Do_Projeto_Convertendo);
-	bool Boleano_Convertido_Checkbox_Abrir_Paginas_Do_Projeto = (Estado_De_Checkbox_Abrir_Paginas_Do_Projeto == TRUE);
-	if (Boleano_Convertido_Checkbox_Abrir_Paginas_Do_Projeto) {
-		Liberacao_De_Checagem_Abrir_Paginas_Do_Projeto = true;
-	} else {
-		Liberacao_De_Checagem_Abrir_Paginas_Do_Projeto = false;
-	}
-
-	GtkEntry *Input_Fonte_Padrao_De_Programa_Convertendo = GTK_ENTRY(Input_Fonte_Padrao_De_Programa);
-	const gchar *Valor_Input_Fonte_Padrao_De_Programa_Convertendo = gtk_entry_get_text(Input_Fonte_Padrao_De_Programa_Convertendo);
-
-	GtkEntry *Input_Fonte_Saudacao_De_Programa_Convertendo = GTK_ENTRY(Input_Fonte_Saudacao_De_Programa);
-	const gchar *Valor_Input_Fonte_Saudacao_De_Programa_Convertendo = gtk_entry_get_text(Input_Fonte_Saudacao_De_Programa_Convertendo);
-
-	GtkEntry *Input_Cor_Da_Fonte_Convertendo = GTK_ENTRY(Input_Cor_Da_Fonte);
-	const gchar *Valor_Input_Cor_Da_Fonte_Convertendo = gtk_entry_get_text(Input_Cor_Da_Fonte_Convertendo);
-
-	GtkEntry *Input_Cor_Da_Borda_Convertendo = GTK_ENTRY(Input_Cor_Da_Borda);
-	const gchar *Valor_Input_Cor_Da_Borda_Convertendo = gtk_entry_get_text(Input_Cor_Da_Borda_Convertendo);
-
-	GtkEntry *Input_Cor_De_Fundo_Da_Janela_Convertendo = GTK_ENTRY(Input_Cor_De_Fundo_Da_Janela);
-	const gchar *Valor_Input_Cor_De_Fundo_Da_Janela_Convertendo = gtk_entry_get_text(Input_Cor_De_Fundo_Da_Janela_Convertendo);
-
-	GtkToggleButton *Checkbox_Imagens_Aparecendo_Como_Princial_Convertendo = GTK_TOGGLE_BUTTON(Checkbox_Imagens_Aparecendo_Como_Princial);
-	gboolean Estado_De_Checkbox_Imagens_Aparecendo_Como_Princial = gtk_toggle_button_get_active(Checkbox_Imagens_Aparecendo_Como_Princial_Convertendo);
-	bool Boleano_Convertido_Checkbox_Imagens_Aparecendo_Como_Princial = (Estado_De_Checkbox_Imagens_Aparecendo_Como_Princial == TRUE);
-	if (Boleano_Convertido_Checkbox_Imagens_Aparecendo_Como_Princial) {
-		Liberacao_De_Checagem_Imagens_Aparecendo_Como_Princial = true;
-	} else {
-		Liberacao_De_Checagem_Imagens_Aparecendo_Como_Princial = false;
-	}
-
-	GtkEntry *Input_Tamanho_Da_Fonte_Convertendo = GTK_ENTRY(Input_Tamanho_Da_Fonte);
-	const gchar *Valor_Input_Tamanho_Da_Fonte_Convertendo = gtk_entry_get_text(Input_Tamanho_Da_Fonte_Convertendo);
-	int Valor_Em_Numero_Input_Tamanho_Da_Fonte_Convertendo = std::stoi(Valor_Input_Tamanho_Da_Fonte_Convertendo);
-
-	Padrao_Configuracao_JSON["Caiminho_Do_Local_Com_Linguagens"] = Valor_Input_Caminho_Da_Pasta_Principal_Convertendo;
-	Padrao_Configuracao_JSON["Abrir_Paginas_Com_Projeto"] = Boleano_Convertido_Checkbox_Abrir_Paginas_Do_Projeto;
-
-	Estilizacao_Configuracao_JSON["Fonte_Padrao_De_Programa"] = Valor_Input_Fonte_Padrao_De_Programa_Convertendo;
-	Estilizacao_Configuracao_JSON["Fonte_Saudacao_De_Programa"] = Valor_Input_Fonte_Saudacao_De_Programa_Convertendo;
-	Estilizacao_Configuracao_JSON["Cor_Da_Fonte"] = Valor_Input_Cor_Da_Fonte_Convertendo;
-	Estilizacao_Configuracao_JSON["Cor_Da_Borda"] = Valor_Input_Cor_Da_Borda_Convertendo;
-	Estilizacao_Configuracao_JSON["Cor_De_Fundo_Da_Janela"] = Valor_Input_Cor_De_Fundo_Da_Janela_Convertendo;
-	Estilizacao_Configuracao_JSON["Imagens_Ilustrativas_De_Linguagem"] = Boleano_Convertido_Checkbox_Imagens_Aparecendo_Como_Princial;
-	Estilizacao_Configuracao_JSON["Tamanho_De_Fonte"] = Valor_Em_Numero_Input_Tamanho_Da_Fonte_Convertendo;
-
-	Arquivo_Padrao_Atualizado << Padrao_Configuracao_JSON.dump(4);
-	Arquivo_Estilizacao_Atualizado << Estilizacao_Configuracao_JSON.dump(4);
-
-	Arquivo_Padrao_Atualizado.close();
-	Arquivo_Estilizacao_Atualizado.close();
-
-	Estilizacao_De_Conteudo();
-}
-
-static void Restauracao_Para_Padrao(void) {
-	Arquivo_Estilizacao.close();
-	std::ofstream Arquivo_Estilizacao_Atualizado("./data/Estilizacao.json");
-	std::ofstream Arquivo_Padrao_Atualizado("./data/Configuracoes.json");
-
-	Padrao_Configuracao_JSON["Caiminho_Do_Local_Com_Linguagens"] = "C:\\Users\\Usuario\\Desktop\\Temp\\Programacao";
-	Padrao_Configuracao_JSON["Abrir_Paginas_Com_Projeto"] = true;
-
-	Estilizacao_Configuracao_JSON["Fonte_Padrao_De_Programa"] = "Consolas";
-	Estilizacao_Configuracao_JSON["Fonte_Saudacao_De_Programa"] = "Comic Sans MS";
-	Estilizacao_Configuracao_JSON["Cor_Da_Fonte"] = "white";
-	Estilizacao_Configuracao_JSON["Cor_Da_Borda"] = "white";
-	Estilizacao_Configuracao_JSON["Cor_De_Fundo_Da_Janela"] = "black";
-	Estilizacao_Configuracao_JSON["Imagens_Ilustrativas_De_Linguagem"] = true;
-	Estilizacao_Configuracao_JSON["Tamanho_De_Fonte"] = 25;
-
-	Arquivo_Padrao_Atualizado << Padrao_Configuracao_JSON.dump(2);
-	Arquivo_Estilizacao_Atualizado << Estilizacao_Configuracao_JSON.dump(2);
-
-	Arquivo_Padrao_Atualizado.close();
-	Arquivo_Estilizacao_Atualizado.close();
-
-	Estilizacao_De_Conteudo();
+static void Removendo_Salvamentos_De_Itens_E_Reabrindo_Index(void) {
+	Conjunto_Inputs_De_Texto.clear();
+	Conjunto_Inputs_De_Numero.clear();
+	Conjunto_Inputs_De_Checkbox.clear();
+	Reativacao_De_Janela_Index();
 }
 
 static void Validacao_De_Apenas_Numero(GtkEditable *editable, const gchar *text, gint length, gint *position) {
@@ -173,67 +48,154 @@ static void Validacao_De_Apenas_Numero(GtkEditable *editable, const gchar *text,
 	}
 }
 
+static void Construcao_De_Opcoes_De_Configuracao_Input_Texto(void) {
+
+	for (const auto &item : Criacao_De_Configuracao_JSON["Configuracoes_Do_Tipo_Texto_Introducao"]) {
+		std::string Texto_Dentro_Do_Label = item.value("Nome", "");
+		std::string Nome_Da_Classe_Da_Opcao = item.value("Classe_Do_Elemento", "");
+		std::string Valor_De_Texto_Ja_Possuido = Configuracao_Universal_JSON[item.value("Nome_Da_Configuracao", "")];
+
+		GtkWidget *Caixa_De_Input_De_Modelo_Configuracao = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+		GtkWidget *Input_De_Modelo_Configuracao = gtk_entry_new();
+		GtkWidget *Label_De_Modelo_Configuracao = gtk_label_new((Texto_Dentro_Do_Label + ": ").c_str());
+
+		Conjunto_Inputs_De_Texto.push_back(Input_De_Modelo_Configuracao);
+
+		gtk_widget_set_name(Caixa_De_Input_De_Modelo_Configuracao, "Inputs_Padrao_Configuracoes");
+		gtk_widget_set_name(Input_De_Modelo_Configuracao, Nome_Da_Classe_Da_Opcao.c_str());
+		gtk_widget_set_name(Label_De_Modelo_Configuracao, "Label_De_Texto_Das_Configuracoes_Com_Input");
+
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Input_De_Modelo_Configuracao), Label_De_Modelo_Configuracao, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Input_De_Modelo_Configuracao), Input_De_Modelo_Configuracao, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_De_Modelo_Configuracao, FALSE, FALSE, 0);
+
+		gtk_entry_set_text(GTK_ENTRY(Input_De_Modelo_Configuracao), Valor_De_Texto_Ja_Possuido.c_str());
+	}
+}
+
+static void Construcao_De_Opcoes_De_Configuracao_Input_Numero(void) {
+	for (const auto &item : Criacao_De_Configuracao_JSON["Configuracoes_Do_Tipo_Numero_Introducao"]) {
+		std::string Texto_Dentro_Do_Label = item.value("Nome", "");
+		std::string Nome_Da_Classe_Da_Opcao = item.value("Classe_Do_Elemento", "");
+		int Valor_De_Numero_Ja_Possuido = Configuracao_Universal_JSON[item.value("Nome_Da_Configuracao", "")];
+
+		GtkWidget *Caixa_De_Input_De_Modelo_Configuracao = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+		GtkWidget *Input_De_Modelo_Configuracao = gtk_entry_new();
+		GtkWidget *Label_De_Modelo_Configuracao = gtk_label_new((Texto_Dentro_Do_Label + ": ").c_str());
+
+		Conjunto_Inputs_De_Numero.push_back(Input_De_Modelo_Configuracao);
+
+		gtk_widget_set_name(Caixa_De_Input_De_Modelo_Configuracao, "Inputs_Padrao_Configuracoes");
+		gtk_widget_set_name(Input_De_Modelo_Configuracao, Nome_Da_Classe_Da_Opcao.c_str());
+		gtk_widget_set_name(Label_De_Modelo_Configuracao, "Label_De_Texto_Das_Configuracoes_Com_Input");
+
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Input_De_Modelo_Configuracao), Label_De_Modelo_Configuracao, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Input_De_Modelo_Configuracao), Input_De_Modelo_Configuracao, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_De_Modelo_Configuracao, FALSE, FALSE, 0);
+
+		gtk_entry_set_text(GTK_ENTRY(Input_De_Modelo_Configuracao), std::to_string(Valor_De_Numero_Ja_Possuido).c_str());
+
+		g_signal_connect(Input_De_Modelo_Configuracao, "insert-text", G_CALLBACK(Validacao_De_Apenas_Numero), NULL);
+	}
+}
+
+static void Construcao_De_Opcoes_De_Configuracao_Input_Checkbox(void) {
+	for (const auto &item : Criacao_De_Configuracao_JSON["Configuracoes_Do_Tipo_Checkbox_Introducao"]) {
+		std::string Texto_Dentro_Do_Label = item.value("Nome", "");
+		std::string Nome_Da_Classe_Da_Opcao = item.value("Classe_Do_Elemento", "");
+		bool Valor_Boleano_De_Grupo = Configuracao_Universal_JSON[item.value("Nome_Da_Configuracao", "")];
+
+		GtkWidget *Caixa_De_Checkbox_Modelo_Configuracao = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+		GtkWidget *Checkbox_Modelo_Configuracao = gtk_check_button_new();
+		GtkWidget *Label_Modelo_Configuracao = gtk_label_new((Texto_Dentro_Do_Label + ": ").c_str());
+
+		Conjunto_Inputs_De_Checkbox.push_back(Checkbox_Modelo_Configuracao);
+
+		gtk_widget_set_name(Caixa_De_Checkbox_Modelo_Configuracao, "Inputs_Padrao_Configuracoes");
+		gtk_widget_set_name(Checkbox_Modelo_Configuracao, Nome_Da_Classe_Da_Opcao.c_str());
+		gtk_widget_set_name(Label_Modelo_Configuracao, "Label_De_Texto_Das_Configuracoes_Com_Input");
+
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Checkbox_Modelo_Configuracao), Label_Modelo_Configuracao, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Checkbox_Modelo_Configuracao), Checkbox_Modelo_Configuracao, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Checkbox_Modelo_Configuracao, FALSE, FALSE, 0);
+
+		if (Valor_Boleano_De_Grupo) {
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(Checkbox_Modelo_Configuracao), TRUE);
+		}
+	}
+}
+
+static void Salvamento_De_Alteracoes(void) {
+
+	std::ofstream Arquivo_Padrao_Atualizado("./data/Configuracoes.json");
+
+	for (size_t index = 0; index < Conjunto_Inputs_De_Texto.size(); ++index) {
+		GtkWidget *Input_De_Texto = Conjunto_Inputs_De_Texto[index];
+		GtkEntry *Input_De_Texto_Convertendo = GTK_ENTRY(Input_De_Texto);
+		const gchar *Valor_Input_De_Texto_Convertendo = gtk_entry_get_text(Input_De_Texto_Convertendo);
+
+		Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Texto[index]] = Valor_Input_De_Texto_Convertendo;
+	}
+
+	for (size_t index = 0; index < Conjunto_Inputs_De_Numero.size(); ++index) {
+		GtkWidget *Input_De_Numero = Conjunto_Inputs_De_Numero[index];
+		GtkEntry *Input_De_Numero_Convertendo = GTK_ENTRY(Input_De_Numero);
+		const gchar *Valor_Input_De_Numero_Convertendo = gtk_entry_get_text(Input_De_Numero_Convertendo);
+		int Valor_Em_Numero_Input_De_Numero_Convertendo = std::stoi(Valor_Input_De_Numero_Convertendo);
+
+		Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Numero[index]] = Valor_Em_Numero_Input_De_Numero_Convertendo;
+	}
+
+	for (size_t index = 0; index < Conjunto_Inputs_De_Checkbox.size(); ++index) {
+		GtkWidget *Input_De_Checkbox = Conjunto_Inputs_De_Checkbox[index];
+		GtkToggleButton *Input_De_Checkbox_Convertendo = GTK_TOGGLE_BUTTON(Input_De_Checkbox);
+		gboolean Valor_Input_De_Checkbox_Convertendo = gtk_toggle_button_get_active(Input_De_Checkbox_Convertendo);
+		bool Boleano_Convertido_Input_De_Checkbox = (Valor_Input_De_Checkbox_Convertendo == TRUE);
+
+		Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Checkbox[index]] = Boleano_Convertido_Input_De_Checkbox;
+	}
+
+	Arquivo_Padrao_Atualizado << Configuracao_Universal_JSON.dump(4);
+
+	Arquivo_Padrao_Atualizado.close();
+
+	Atribuicao_De_Valores_Em_Variaveis_Globais();
+
+	Estilizacao_De_Conteudo();
+}
+
+static void Restauracao_Para_Padrao(void) {
+	std::ofstream Arquivo_Estilizacao_Atualizado("./data/Estilizacao.json");
+	std::ofstream Arquivo_Padrao_Atualizado("./data/Configuracoes.json");
+
+	Configuracao_Universal_JSON["Caiminho_Do_Local_Com_Linguagens"] = "C:\\Users\\Usuario\\Desktop\\Temp\\Programacao";
+	Configuracao_Universal_JSON["Abrir_Paginas_Com_Projeto"] = true;
+
+	Configuracao_Universal_JSON["Fonte_Padrao_De_Programa"] = "Consolas";
+	Configuracao_Universal_JSON["Fonte_Saudacao_De_Programa"] = "Comic Sans MS";
+	Configuracao_Universal_JSON["Cor_Da_Fonte"] = "white";
+	Configuracao_Universal_JSON["Cor_Da_Borda"] = "white";
+	Configuracao_Universal_JSON["Cor_De_Fundo_Da_Janela"] = "black";
+	Configuracao_Universal_JSON["Imagens_Ilustrativas_De_Linguagem"] = true;
+	Configuracao_Universal_JSON["Tamanho_De_Fonte"] = 25;
+
+	Arquivo_Padrao_Atualizado << Configuracao_Universal_JSON.dump(2);
+	Arquivo_Estilizacao_Atualizado << Configuracao_Universal_JSON.dump(2);
+
+	Arquivo_Padrao_Atualizado.close();
+	Arquivo_Estilizacao_Atualizado.close();
+
+	Atribuicao_De_Valores_Em_Variaveis_Globais();
+
+	Estilizacao_De_Conteudo();
+}
+
 static void Ativacao_De_Elementos(void) {
 	Botao_De_Salvar_Alteracoes = gtk_button_new_with_label("Salvar");
 	Botao_De_Restaurar_Alteracoes = gtk_button_new_with_label("Restaurar");
 	Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
-	Caixa_De_Input_Caminho_Da_Pasta_Principal = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Input_Caminho_Da_Pasta_Principal = gtk_entry_new();
-	Label_Caminho_Da_Pasta_Principal = gtk_label_new("Pasta principal: ");
-
-	Caixa_De_Checkbox_Abrir_Paginas_Do_Projeto = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Checkbox_Abrir_Paginas_Do_Projeto = gtk_check_button_new();
-	Label_Abrir_Paginas_Do_Projeto = gtk_label_new("Abrir sites: ");
-
-	Caixa_De_Input_Fonte_Padrao_De_Programa = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Input_Fonte_Padrao_De_Programa = gtk_entry_new();
-	Label_Fonte_Padrao_De_Programa = gtk_label_new("Fonte princial: ");
-
-	Caixa_De_Input_Fonte_Saudacao_De_Programa = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Input_Fonte_Saudacao_De_Programa = gtk_entry_new();
-	Label_Fonte_Saudacao_De_Programa = gtk_label_new("Fonte saudacao: ");
-
-	Caixa_De_Input_Cor_Da_Fonte = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Input_Cor_Da_Fonte = gtk_entry_new();
-	Label_Cor_Da_Fonte = gtk_label_new("Cor da fonte: ");
-
-	Caixa_De_Input_Cor_Da_Borda = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Input_Cor_Da_Borda = gtk_entry_new();
-	Label_Cor_Da_Borda = gtk_label_new("Cor das bordas: ");
-
-	Caixa_De_Input_Cor_De_Fundo_Da_Janela = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Input_Cor_De_Fundo_Da_Janela = gtk_entry_new();
-	Label_Cor_De_Fundo_Da_Janela = gtk_label_new("Cor de fundo: ");
-
-	Caixa_De_Checkbox_Imagens_Aparecendo_Como_Princial = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Checkbox_Imagens_Aparecendo_Como_Princial = gtk_check_button_new();
-	Label_Imagens_Aparecendo_Como_Princial = gtk_label_new("Imagens: ");
-
-	Caixa_De_Input_Tamanho_Da_Fonte = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	Input_Tamanho_Da_Fonte = gtk_entry_new();
-	Label_Tamanho_Da_Fonte = gtk_label_new("Tamanho da Fonte: ");
-
 	Caixa_De_Opcoes_De_Configuracao = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-}
-
-static void Definindo_Valores_Padrao_De_Input(void) {
-	gtk_entry_set_text(GTK_ENTRY(Input_Caminho_Da_Pasta_Principal), Padrao_Configuracao.Caminho_Pasta_Principal.c_str());
-	if (Padrao_Configuracao.Abrir_Paginas_Com_Projeto && Liberacao_De_Checagem_Abrir_Paginas_Do_Projeto) {
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(Checkbox_Abrir_Paginas_Do_Projeto), TRUE);
-	}
-
-	gtk_entry_set_text(GTK_ENTRY(Input_Fonte_Padrao_De_Programa), Estilizacao_Configuracao.Fonte_Padrao_De_Programa.c_str());
-	gtk_entry_set_text(GTK_ENTRY(Input_Fonte_Saudacao_De_Programa), Estilizacao_Configuracao.Fonte_Saudacao_De_Programa.c_str());
-
-	gtk_entry_set_text(GTK_ENTRY(Input_Cor_Da_Fonte), Estilizacao_Configuracao.Cor_Da_Fonte.c_str());
-	gtk_entry_set_text(GTK_ENTRY(Input_Cor_Da_Borda), Estilizacao_Configuracao.Cor_Da_Borda.c_str());
-	gtk_entry_set_text(GTK_ENTRY(Input_Cor_De_Fundo_Da_Janela), Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela.c_str());
-
-	gtk_entry_set_text(GTK_ENTRY(Input_Tamanho_Da_Fonte), std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte).c_str());
-	if (Estilizacao_Configuracao.Imagens_Ilustrativas_De_Linguagem && Liberacao_De_Checagem_Imagens_Aparecendo_Como_Princial) {
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(Checkbox_Imagens_Aparecendo_Como_Princial), TRUE);
-	}
 }
 
 static void Definindo_Ids(void) {
@@ -244,28 +206,6 @@ static void Definindo_Ids(void) {
 	gtk_widget_set_name(Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao, "Caixa_De_Inicio_Conjunto");
 
 	gtk_widget_set_name(Caixa_De_Opcoes_De_Configuracao, "Caixa_De_Opcoes_De_Configuracoes");
-
-	gtk_widget_set_name(Caixa_De_Input_Caminho_Da_Pasta_Principal, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Checkbox_Abrir_Paginas_Do_Projeto, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Input_Fonte_Padrao_De_Programa, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Input_Fonte_Saudacao_De_Programa, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Input_Cor_Da_Fonte, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Input_Cor_Da_Borda, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Input_Cor_De_Fundo_Da_Janela, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Checkbox_Imagens_Aparecendo_Como_Princial, "Inputs_Padrao_Configuracoes");
-	gtk_widget_set_name(Caixa_De_Input_Tamanho_Da_Fonte, "Inputs_Padrao_Configuracoes");
-
-	gtk_widget_set_name(Input_Caminho_Da_Pasta_Principal, "Input_De_Caminho_Das_Configuracoes");
-
-	gtk_widget_set_name(Label_Caminho_Da_Pasta_Principal, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Abrir_Paginas_Do_Projeto, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Fonte_Padrao_De_Programa, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Fonte_Saudacao_De_Programa, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Cor_Da_Fonte, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Cor_Da_Borda, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Cor_De_Fundo_Da_Janela, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Imagens_Aparecendo_Como_Princial, "Label_De_Texto_Das_Configuracoes_Com_Input");
-	gtk_widget_set_name(Label_Tamanho_Da_Fonte, "Label_De_Texto_Das_Configuracoes_Com_Input");
 }
 
 static void Configurando_Janela(void) {
@@ -276,42 +216,6 @@ static void Configurando_Janela(void) {
 }
 
 static void Indentacao_Do_Conteudo(void) {
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Caminho_Da_Pasta_Principal), Label_Caminho_Da_Pasta_Principal, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Caminho_Da_Pasta_Principal), Input_Caminho_Da_Pasta_Principal, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_Caminho_Da_Pasta_Principal, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Checkbox_Abrir_Paginas_Do_Projeto), Label_Abrir_Paginas_Do_Projeto, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Checkbox_Abrir_Paginas_Do_Projeto), Checkbox_Abrir_Paginas_Do_Projeto, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Checkbox_Abrir_Paginas_Do_Projeto, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Fonte_Padrao_De_Programa), Label_Fonte_Padrao_De_Programa, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Fonte_Padrao_De_Programa), Input_Fonte_Padrao_De_Programa, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_Fonte_Padrao_De_Programa, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Fonte_Saudacao_De_Programa), Label_Fonte_Saudacao_De_Programa, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Fonte_Saudacao_De_Programa), Input_Fonte_Saudacao_De_Programa, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_Fonte_Saudacao_De_Programa, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Cor_Da_Fonte), Label_Cor_Da_Fonte, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Cor_Da_Fonte), Input_Cor_Da_Fonte, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_Cor_Da_Fonte, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Cor_Da_Borda), Label_Cor_Da_Borda, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Cor_Da_Borda), Input_Cor_Da_Borda, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_Cor_Da_Borda, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Cor_De_Fundo_Da_Janela), Label_Cor_De_Fundo_Da_Janela, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Cor_De_Fundo_Da_Janela), Input_Cor_De_Fundo_Da_Janela, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_Cor_De_Fundo_Da_Janela, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Checkbox_Imagens_Aparecendo_Como_Princial), Label_Imagens_Aparecendo_Como_Princial, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Checkbox_Imagens_Aparecendo_Como_Princial), Checkbox_Imagens_Aparecendo_Como_Princial, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Checkbox_Imagens_Aparecendo_Como_Princial, FALSE, FALSE, 0);
-
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Tamanho_Da_Fonte), Label_Tamanho_Da_Fonte, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Input_Tamanho_Da_Fonte), Input_Tamanho_Da_Fonte, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Input_Tamanho_Da_Fonte, FALSE, FALSE, 0);
-
 	gtk_box_pack_start(GTK_BOX(Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao), Botao_De_Restaurar_Alteracoes, FALSE, FALSE, 0);
 	gtk_box_pack_end(GTK_BOX(Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao), Botao_De_Salvar_Alteracoes, FALSE, FALSE, 0);
 	gtk_box_pack_end(GTK_BOX(Caixa_De_Opcoes_De_Configuracao), Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao, FALSE, FALSE, 0);
@@ -322,16 +226,11 @@ static void Indentacao_Do_Conteudo(void) {
 static void Acoes_Executaveis(void) {
 	g_signal_connect(Botao_De_Salvar_Alteracoes, "clicked", G_CALLBACK(Salvamento_De_Alteracoes), NULL);
 	g_signal_connect(Botao_De_Restaurar_Alteracoes, "clicked", G_CALLBACK(Restauracao_Para_Padrao), NULL);
-	g_signal_connect(Input_Tamanho_Da_Fonte, "insert-text", G_CALLBACK(Validacao_De_Apenas_Numero), NULL);
 }
 
 static void Ativacao_De_Aplicacao(void) {
 	// Ativando os elementos
 	Ativacao_De_Elementos();
-	//---------------------------------------------------------------------------------------
-
-	// Adicionando o valor existente dentro deles
-	Definindo_Valores_Padrao_De_Input();
 	//---------------------------------------------------------------------------------------
 
 	// Definicao de ids de Elementos
@@ -346,7 +245,11 @@ static void Ativacao_De_Aplicacao(void) {
 	Acoes_Executaveis();
 	//---------------------------------------------------------------------------------------
 
-	Criar_Botao_Sessao_Anterior(window_Configuracoes, Caixa_De_Opcoes_De_Configuracao, Reativacao_De_Janela_Index);
+	Criar_Botao_Sessao_Anterior(window_Configuracoes, Caixa_De_Opcoes_De_Configuracao, Removendo_Salvamentos_De_Itens_E_Reabrindo_Index);
+
+	Construcao_De_Opcoes_De_Configuracao_Input_Texto();
+	Construcao_De_Opcoes_De_Configuracao_Input_Numero();
+	Construcao_De_Opcoes_De_Configuracao_Input_Checkbox();
 
 	// Indentacao de elementos
 	Indentacao_Do_Conteudo();

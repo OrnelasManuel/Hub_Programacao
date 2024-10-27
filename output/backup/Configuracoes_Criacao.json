@@ -1,0 +1,67 @@
+{
+  "Configuracoes_Do_Tipo_Texto": [
+    "Caiminho_Do_Local_Com_Linguagens",
+    "Fonte_Padrao_De_Programa",
+    "Fonte_Saudacao_De_Programa",
+    "Cor_Da_Fonte",
+    "Cor_Da_Borda",
+    "Cor_De_Fundo_Da_Janela"
+  ],
+  "Configuracoes_Do_Tipo_Numero": ["Tamanho_De_Fonte"],
+  "Configuracoes_Do_Tipo_Checkbox": [
+    "Abrir_Paginas_Com_Projeto",
+    "Imagens_Ilustrativas_De_Linguagem"
+  ],
+
+  "Configuracoes_Do_Tipo_Texto_Introducao": [
+    {
+      "Nome": "Pasta principal",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Caiminho_Do_Local_Com_Linguagens"
+    },
+    {
+      "Nome": "Fonte princial",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Fonte_Padrao_De_Programa"
+    },
+    {
+      "Nome": "Fonte saudacao",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Fonte_Saudacao_De_Programa"
+    },
+    {
+      "Nome": "Cor da fonte",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Cor_Da_Fonte"
+    },
+    {
+      "Nome": "Cor das bordas",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Cor_Da_Borda"
+    },
+    {
+      "Nome": "Cor de fundo",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Cor_De_Fundo_Da_Janela"
+    }
+  ],
+  "Configuracoes_Do_Tipo_Numero_Introducao": [
+    {
+      "Nome": "Tamanho da Fonte",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Tamanho_De_Fonte"
+    }
+  ],
+  "Configuracoes_Do_Tipo_Checkbox_Introducao": [
+    {
+      "Nome": "Abrir sites",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Abrir_Paginas_Com_Projeto"
+    },
+    {
+      "Nome": "Imagens",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Imagens_Ilustrativas_De_Linguagem"
+    }
+  ]
+}

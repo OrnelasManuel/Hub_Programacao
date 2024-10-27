@@ -8,6 +8,7 @@
 extern void Novo_Projeto_Grafico(GtkWidget *window_recebido);
 extern void Configuracao_Grafico(GtkWidget *window_recebido);
 extern void Estilizacao_De_Conteudo(void);
+extern void Atribuicao_De_Valores_Em_Variaveis_Globais(void);
 
 // Criacao de Elementos
 GtkApplication *Aplicacao;
@@ -139,6 +140,9 @@ void Reativacao_De_Janela_Index(void) {
 void Index_Grafico(GtkApplication *Aplicacao_Recebida, gpointer user_data) {
 	Aplicacao = Aplicacao_Recebida;
 	window = gtk_application_window_new(Aplicacao);
+	Atribuicao_De_Valores_Em_Variaveis_Globais();
+
 	Ativacao_De_Aplicacao();
+
 	gtk_window_get_position(GTK_WINDOW(window), &Posicao_X, &Posicao_Y);
 }
