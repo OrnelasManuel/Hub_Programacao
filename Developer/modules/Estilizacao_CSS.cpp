@@ -1,4 +1,5 @@
 #include <Classe_Configuracao.hpp>
+#include <Variaveis_Globais.hpp>
 #include <fstream>
 #include <gtk/gtk.h>
 #include <iostream>
@@ -7,14 +8,6 @@
 using json = nlohmann::json;
 
 void Estilizacao_De_Conteudo(void) {
-	std::ifstream Arquivo_Estilizacao("./data/Estilizacao.json");
-
-	json Estilizacao_Configuracao_JSON = json::parse(Arquivo_Estilizacao);
-
-	Configuracao_Estilo Estilizacao_Configuracao(Estilizacao_Configuracao_JSON);
-
-	Arquivo_Estilizacao.close();
-
 	// Criacao de Folha CSS
 	GtkCssProvider *Folha_CSS_Principal = gtk_css_provider_new();
 	//---------------------------------------------------------------------------------------
@@ -22,10 +15,10 @@ void Estilizacao_De_Conteudo(void) {
 	// Criacao de string CSS
 	std::string String_CSS = "#Corpo_Da_Janela {"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "color: " +
-	                         Estilizacao_Configuracao.Cor_Da_Fonte +
+	                         Configuracao_Universal.Cor_Da_Fonte +
 	                         ";"
 	                         "}"
 
@@ -35,43 +28,43 @@ void Estilizacao_De_Conteudo(void) {
 
 	                         "#Texto_De_Saudacao {"
 	                         "font-size: " +
-	                         std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte_Grande) +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte_Grande) +
 	                         "px;"
 	                         "font-family: '" +
-	                         Estilizacao_Configuracao.Fonte_Saudacao_De_Programa +
+	                         Configuracao_Universal.Fonte_Saudacao_De_Programa +
 	                         "';"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         "; "
 	                         "color: " +
-	                         Estilizacao_Configuracao.Cor_Da_Fonte +
+	                         Configuracao_Universal.Cor_Da_Fonte +
 	                         "; "
 	                         "}"
 
 	                         "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes {"
 	                         "box-shadow: none;"
 	                         "border: 1px solid " +
-	                         Estilizacao_Configuracao.Cor_Da_Borda +
+	                         Configuracao_Universal.Cor_Da_Borda +
 	                         ";"
 	                         "margin: 10px;"
 	                         "border-radius: 0px;"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "}"
 
 	                         "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes label {"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "color: " +
-	                         Estilizacao_Configuracao.Cor_Da_Fonte +
+	                         Configuracao_Universal.Cor_Da_Fonte +
 	                         ";"
 	                         "font-size: " +
-	                         std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte) +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
 	                         "px;"
 	                         "font-family: '" +
-	                         Estilizacao_Configuracao.Fonte_Padrao_De_Programa +
+	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
 	                         "';"
 	                         "padding: 25px;"
 	                         "margin: 0;"
@@ -79,40 +72,40 @@ void Estilizacao_De_Conteudo(void) {
 
 	                         "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes *{"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "}"
 
 	                         "eventbox{"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "}"
 
 	                         "#Botoes_De_Acao_Individual {"
 	                         "padding: 0;"
 	                         "border: 1px solid " +
-	                         Estilizacao_Configuracao.Cor_Da_Borda +
+	                         Configuracao_Universal.Cor_Da_Borda +
 	                         ";"
 	                         "margin: 10px;"
 	                         "border-radius: 0px;"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "}"
 
 	                         "#Botoes_De_Acao_Individual label {"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "color: " +
-	                         Estilizacao_Configuracao.Cor_Da_Fonte +
+	                         Configuracao_Universal.Cor_Da_Fonte +
 	                         ";"
 	                         "font-size: " +
-	                         std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte) +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
 	                         "px;"
 	                         "font-family: '" +
-	                         Estilizacao_Configuracao.Fonte_Padrao_De_Programa +
+	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
 	                         "';"
 	                         "padding: 0;"
 	                         "margin: 0;"
@@ -124,42 +117,42 @@ void Estilizacao_De_Conteudo(void) {
 	                         "#Caixa_De_Inicio_Conjunto {"
 	                         "padding: 0;"
 	                         "border: 0px solid " +
-	                         Estilizacao_Configuracao.Cor_Da_Borda +
+	                         Configuracao_Universal.Cor_Da_Borda +
 	                         ";"
 	                         "margin: 0;"
 	                         "border-radius: 0px;"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "}"
 
 	                         "#Caixa_De_Inicio_Conjunto > button{"
 	                         "padding: 0;"
 	                         "border: 1px solid " +
-	                         Estilizacao_Configuracao.Cor_Da_Borda +
+	                         Configuracao_Universal.Cor_Da_Borda +
 	                         ";"
 	                         "margin: 10px;"
 	                         "border-radius: 0px;"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "}"
 
 	                         "#Label_De_Texto_Das_Configuracoes_Com_Input {"
 	                         "font-size: " +
-	                         std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte) +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
 	                         "px;"
 	                         "font-family: '" +
-	                         Estilizacao_Configuracao.Fonte_Padrao_De_Programa +
+	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
 	                         "';"
 	                         "}"
 
 	                         "#Inputs_Padrao_Configuracoes {"
 	                         "font-size: " +
-	                         std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte) +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
 	                         "px;"
 	                         "font-family: '" +
-	                         Estilizacao_Configuracao.Fonte_Padrao_De_Programa +
+	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
 	                         "';"
 	                         "}"
 
@@ -170,20 +163,20 @@ void Estilizacao_De_Conteudo(void) {
 	                         "#Conjunto_Label_Input_Criacao_De_Projeto_Nome {"
 	                         "margin: 0 20px;"
 	                         "font-size: " +
-	                         std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte) +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
 	                         "px;"
 	                         "font-family: '" +
-	                         Estilizacao_Configuracao.Fonte_Padrao_De_Programa +
+	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
 	                         "';"
 	                         "}"
 
 	                         "#Caixa_De_Inicio_Conjunto label {"
 	                         "background-color: " +
-	                         Estilizacao_Configuracao.Cor_De_Fundo_Da_Janela +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
 	                         ";"
 	                         "margin: 0;"
 	                         "color: " +
-	                         Estilizacao_Configuracao.Cor_Da_Fonte +
+	                         Configuracao_Universal.Cor_Da_Fonte +
 	                         ";"
 	                         "padding: 0;"
 	                         "background-repeat: no-repeat, no-repeat;"
@@ -193,7 +186,7 @@ void Estilizacao_De_Conteudo(void) {
 
 	                         "#Input_De_Caminho_Das_Configuracoes{"
 	                         "font-size: " +
-	                         std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte_Pequeno) +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte_Pequeno) +
 	                         "px;"
 	                         "}"
 
@@ -203,7 +196,7 @@ void Estilizacao_De_Conteudo(void) {
 
 	//---------------------------------------------------------------------------------------
 
-	if (Estilizacao_Configuracao.Imagens_Ilustrativas_De_Linguagem) {
+	if (Configuracao_Universal.Imagens_Ilustrativas_De_Linguagem) {
 		String_CSS += "#Botoes_De_Acao_Individual_ReactJs label {background-image: url('./Aplication_Images/ReactJs.png'), "
 		              "url('./Aplication_Images/ReactJs.png')"
 		              "; }"
@@ -227,7 +220,7 @@ void Estilizacao_De_Conteudo(void) {
 		              "#Botoes_De_Acao_Individual_CPP label {background-image: none;}"
 		              "#Caixa_De_Inicio_Conjunto button label {"
 		              "font-size: " +
-		              std::to_string(Estilizacao_Configuracao.Tamanho_Da_Fonte) +
+		              std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
 		              "px;"
 		              "}";
 	}
