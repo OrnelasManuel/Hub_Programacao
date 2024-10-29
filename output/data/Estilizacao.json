@@ -7,5 +7,12 @@
   "Fonte_Padrao_De_Programa": "Consolas",
   "Fonte_Saudacao_De_Programa": "Comic Sans MS",
   "Imagens_Ilustrativas_De_Linguagem": true,
-  "Tamanho_De_Fonte": 25
+  "Tamanho_De_Fonte": 25,
+  "Temas_De_Projetos": [
+    "ReactJs",
+    "NodeJs",
+    "Front-End",
+    "CMD",
+    "C++"
+  ]
 }

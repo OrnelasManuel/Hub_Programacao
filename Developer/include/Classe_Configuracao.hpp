@@ -2,6 +2,7 @@
 #ifndef Classe_Configuracao
 #define Classe_Configuracao
 
+#include <filesystem>
 #include <iostream>
 #include <nlohmann/json.hpp> // Certifique-se de incluir a biblioteca JSON correta
 #include <string>
@@ -15,12 +16,13 @@ class Converter_Json_De_Configuracoes {
 
 	Converter_Json_De_Configuracoes(json Configuracao_Recebida) {
 		Caminho_Pasta_Principal = Configuracao_Recebida["Caiminho_Do_Local_Com_Linguagens"];
-
 		Fonte_Padrao_De_Programa = Configuracao_Recebida["Fonte_Padrao_De_Programa"];
 		Fonte_Saudacao_De_Programa = Configuracao_Recebida["Fonte_Saudacao_De_Programa"];
 		Cor_Da_Fonte = Configuracao_Recebida["Cor_Da_Fonte"];
 		Cor_Da_Borda = Configuracao_Recebida["Cor_Da_Borda"];
 		Cor_De_Fundo_Da_Janela = Configuracao_Recebida["Cor_De_Fundo_Da_Janela"];
+
+		Temas_De_Projetos = Configuracao_Recebida["Temas_De_Projetos"];
 
 		Imagens_Ilustrativas_De_Linguagem = Configuracao_Recebida["Imagens_Ilustrativas_De_Linguagem"];
 		Abrir_Paginas_Com_Projeto = Configuracao_Recebida["Abrir_Paginas_Com_Projeto"];
@@ -36,6 +38,8 @@ class Converter_Json_De_Configuracoes {
 	std::string Cor_Da_Borda;
 	std::string Cor_De_Fundo_Da_Janela;
 	std::string Caminho_Pasta_Principal;
+
+	std::vector<std::string> Temas_De_Projetos;
 
 	bool Imagens_Ilustrativas_De_Linguagem;
 	bool Abrir_Paginas_Com_Projeto;

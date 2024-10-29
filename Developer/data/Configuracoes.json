@@ -5,7 +5,11 @@
   "Cor_Da_Fonte": "darkred",
   "Cor_Da_Borda": "black",
   "Cor_De_Fundo_Da_Janela": "white",
+
+  "Temas_De_Projetos": ["ReactJs", "NodeJs", "Front-End", "CMD", "C++"],
+
   "Tamanho_De_Fonte": 30,
+
   "Abrir_Paginas_Com_Projeto": false,
   "Imagens_Ilustrativas_De_Linguagem": true
 }
