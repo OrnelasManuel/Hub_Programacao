@@ -83,6 +83,7 @@ static void Configuracao_De_Projeto(void) {
 		Input_Nome_Do_Projeto_Convertendo = GTK_ENTRY(Input_Nome_Do_Projeto);
 		Valor_Input_Nome_Do_Projeto_Convertendo = gtk_entry_get_text(Input_Nome_Do_Projeto_Convertendo);
 		Localizacao_Do_Projeto = Configuracao_Universal.Caminho_Pasta_Principal + "\\" + Caminho_Da_Pasta + "\\" + Valor_Input_Nome_Do_Projeto_Convertendo;
+
 		Copiar_Arquivos_Para_Nova_Localizacao = std::string("xcopy \"") + ".\\models\\" + Pasta_De_Copia + "\" \"" + Configuracao_Universal.Caminho_Pasta_Principal + "\\" +
 		                                        Caminho_Da_Pasta + "\\" + Valor_Input_Nome_Do_Projeto_Convertendo + "\" /E /I /Y";
 	} else if (Tipo_De_Acesso_Sendo_Feito == "Acesso" || Tipo_De_Acesso_Sendo_Feito == "Remocao") {

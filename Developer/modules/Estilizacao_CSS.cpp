@@ -184,6 +184,85 @@ void Estilizacao_De_Conteudo(void) {
 	                         "background-size: contain, contain;"
 	                         "}"
 
+	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes {"
+	                         "box-shadow: none;"
+	                         "border: 1px solid " +
+	                         Configuracao_Universal.Cor_Da_Borda +
+	                         ";"
+	                         "margin: 10px;"
+	                         "border-radius: 0px;"
+	                         "background-color: " +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
+	                         ";"
+	                         "}"
+
+	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes label {"
+	                         "background-color: " +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
+	                         ";"
+	                         "color: " +
+	                         Configuracao_Universal.Cor_Da_Fonte +
+	                         ";"
+	                         "font-size: " +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
+	                         "px;"
+	                         "font-family: '" +
+	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
+	                         "';"
+	                         "padding: 25px;"
+	                         "margin: 0;"
+	                         "}"
+
+	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes *{"
+	                         "background-color: " +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
+	                         ";"
+	                         "}"
+
+	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes {"
+	                         "padding: 0;"
+	                         "border: 0px solid " +
+	                         Configuracao_Universal.Cor_Da_Borda +
+	                         ";"
+	                         "margin: 0;"
+	                         "border-radius: 0px;"
+	                         "background-color: " +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
+	                         ";"
+	                         "}"
+
+	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes > button{"
+	                         "padding: 0;"
+	                         "border: 1px solid " +
+	                         Configuracao_Universal.Cor_Da_Borda +
+	                         ";"
+	                         "margin: 10px;"
+	                         "border-radius: 0px;"
+	                         "background-color: " +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
+	                         ";"
+	                         "}"
+
+	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes label {"
+	                         "background-color: " +
+	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
+	                         ";"
+	                         "margin: 0;"
+	                         "color: " +
+	                         Configuracao_Universal.Cor_Da_Fonte +
+	                         ";"
+	                         "padding: 0;"
+	                         "background-repeat: no-repeat, no-repeat;"
+	                         "background-position: left top, right bottom; "
+	                         "background-size: contain, contain;"
+	                         "}"
+
+	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes button label {"
+	                         "font-size: " +
+	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte_Pequeno) +
+	                         "px;"
+	                         "}"
+
 	                         "#Input_De_Caminho_Das_Configuracoes{"
 	                         "font-size: " +
 	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte_Pequeno) +
@@ -197,28 +276,33 @@ void Estilizacao_De_Conteudo(void) {
 	//---------------------------------------------------------------------------------------
 
 	if (Configuracao_Universal.Imagens_Ilustrativas_De_Linguagem) {
-		String_CSS += "#Botoes_De_Acao_Individual_ReactJs label {background-image: url('./Aplication_Images/ReactJs.png'), "
-		              "url('./Aplication_Images/ReactJs.png')"
-		              "; }"
-		              "#Botoes_De_Acao_Individual_NodeJs label {background-image: url('./Aplication_Images/NodeJs.png'), "
-		              "url('./Aplication_Images/NodeJs.png')"
-		              "; }"
-		              "#Botoes_De_Acao_Individual_Front_End label {background-image: url('./Aplication_Images/Front_End.png'), "
-		              "url('./Aplication_Images/Front_End.png')"
-		              "; }"
-		              "#Botoes_De_Acao_Individual_CMD label {background-image: url('./Aplication_Images/CMD.png'), "
-		              "url('./Aplication_Images/CMD.png')"
-		              "; }"
-		              "#Botoes_De_Acao_Individual_CPP label {background-image: url('./Aplication_Images/CPP.png'), "
-		              "url('./Aplication_Images/CPP.png')"
-		              "; }";
+		for (const auto &item : Configuracao_Universal_JSON["Temas_De_Projetos"]) {
+			std::string Texto_Interno = item;
+			std::string Tema_Do_Item_Formatado = Texto_Interno;
+
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '-', '_');
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '+', 'P');
+
+			String_CSS += "#Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado + " label {background-image: url('./Aplication_Images/" + Tema_Do_Item_Formatado +
+			              ".png'), "
+			              "url('./Aplication_Images/" +
+			              Tema_Do_Item_Formatado +
+			              ".png')"
+			              "; }";
+		}
+
 	} else {
-		String_CSS += "#Botoes_De_Acao_Individual_ReactJs label {background-image: none;}"
-		              "#Botoes_De_Acao_Individual_NodeJs label {background-image: none;}"
-		              "#Botoes_De_Acao_Individual_Front_End label {background-image: none;}"
-		              "#Botoes_De_Acao_Individual_CMD label {background-image: none;}"
-		              "#Botoes_De_Acao_Individual_CPP label {background-image: none;}"
-		              "#Caixa_De_Inicio_Conjunto button label {"
+		for (const auto &item : Configuracao_Universal_JSON["Temas_De_Projetos"]) {
+			std::string Texto_Interno = item;
+			std::string Tema_Do_Item_Formatado = Texto_Interno;
+
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '-', '_');
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '+', 'P');
+
+			String_CSS += "#Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado + " label {background-image: none;}";
+		}
+
+		String_CSS += "#Caixa_De_Inicio_Conjunto_De_Opcoes button label {"
 		              "font-size: " +
 		              std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
 		              "px;"

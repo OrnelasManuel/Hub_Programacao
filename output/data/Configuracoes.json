@@ -1,11 +1,12 @@
 {
-    "Abrir_Paginas_Com_Projeto": true,
-    "Caiminho_Do_Local_Com_Linguagens": "C:\\Users\\Usuario\\Desktop\\Temp\\Programacao",
-    "Cor_Da_Borda": "black",
-    "Cor_Da_Fonte": "darkred",
-    "Cor_De_Fundo_Da_Janela": "white",
-    "Fonte_Padrao_De_Programa": "Consolas",
-    "Fonte_Saudacao_De_Programa": "Comic Sans MS",
-    "Imagens_Ilustrativas_De_Linguagem": true,
-    "Tamanho_De_Fonte": 30
+  "Abrir_Paginas_Com_Projeto": false,
+  "Caiminho_Do_Local_Com_Linguagens": "C:\\Users\\Usuario\\Desktop\\Temp\\Programacao",
+  "Cor_Da_Borda": "black",
+  "Cor_Da_Fonte": "darkred",
+  "Cor_De_Fundo_Da_Janela": "white",
+  "Fonte_Padrao_De_Programa": "Consolas",
+  "Fonte_Saudacao_De_Programa": "Comic Sans MS",
+  "Imagens_Ilustrativas_De_Linguagem": true,
+  "Tamanho_De_Fonte": 30,
+  "Temas_De_Projetos": ["ReactJs", "NodeJs", "Front-End", "CMD", "C++"]
 }

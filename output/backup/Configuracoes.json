@@ -1,11 +1,15 @@
 {
   "Caiminho_Do_Local_Com_Linguagens": "C:\\Users\\Usuario\\Desktop\\Temp\\Programacao",
-  "Abrir_Paginas_Com_Projeto": false,
   "Fonte_Padrao_De_Programa": "Consolas",
   "Fonte_Saudacao_De_Programa": "Comic Sans MS",
-  "Cor_Da_Fonte": "white",
-  "Cor_Da_Borda": "white",
-  "Cor_De_Fundo_Da_Janela": "black",
-  "Imagens_Ilustrativas_De_Linguagem": true,
-  "Tamanho_De_Fonte": 25
+  "Cor_Da_Fonte": "darkred",
+  "Cor_Da_Borda": "black",
+  "Cor_De_Fundo_Da_Janela": "white",
+
+  "Temas_De_Projetos": ["ReactJs", "NodeJs", "Front-End", "CMD", "C++"],
+
+  "Tamanho_De_Fonte": 30,
+
+  "Abrir_Paginas_Com_Projeto": false,
+  "Imagens_Ilustrativas_De_Linguagem": true
 }

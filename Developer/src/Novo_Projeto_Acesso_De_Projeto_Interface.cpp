@@ -1,5 +1,8 @@
 #include <Variaveis_Globais.hpp>
+#include <algorithm>
 #include <gtk/gtk.h>
+#include <iostream>
+#include <string>
 
 extern void Reativacao_De_Janela_Index(void);
 extern void Criar_Botao_Sessao_Anterior(GtkWidget *window_recebido, GtkWidget *Caixa_Onde_O_Botao_Vai_Ficar, void (*Funcao_De_Ativacao)());
@@ -8,12 +11,36 @@ extern void Acesso_Ou_Criacao_De_Projeto_App(GtkWidget *window_recebido, const c
 GtkWidget *window_Novo_Projeto;
 GtkWidget *Caixa_De_Botoes;
 
-static void Criacao_De_Botoes(const char *Texto_Interno, const char *Id_Do_CSS, void (*Funcao_De_Ativacao_Quando_Botao_FOR_Clicado)()) {
-	GtkWidget *Botao_De_Linguagem_Modelo;
-	Botao_De_Linguagem_Modelo = gtk_button_new_with_label(Texto_Interno);
-	gtk_widget_set_name(Botao_De_Linguagem_Modelo, Id_Do_CSS);
-	gtk_box_pack_start(GTK_BOX(Caixa_De_Botoes), Botao_De_Linguagem_Modelo, TRUE, TRUE, 0);
-	g_signal_connect(Botao_De_Linguagem_Modelo, "clicked", G_CALLBACK(Funcao_De_Ativacao_Quando_Botao_FOR_Clicado), NULL);
+static void Novo_Projeto_Modelo(GtkWidget *widget, gpointer data) {
+	std::string *Tema_Do_Item = static_cast<std::string *>(data);
+	std::string Tema_Do_Item_Formatado = *Tema_Do_Item;
+
+	std::string Nome_Da_Pasta_Modelo = "Modelo_" + Tema_Do_Item_Formatado;
+
+	std::cout << "Valor formatado: " << Tema_Do_Item_Formatado << std::endl;
+	std::cout << "Pasta modelo: " << Nome_Da_Pasta_Modelo << std::endl;
+
+	// gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
+	// Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, Nome_Da_Pasta_Modelo.c_str(), Tema_Do_Item_Formatado.c_str());
+}
+
+static void Criacao_De_Botoes(void) {
+	for (const auto &item : Configuracao_Universal_JSON["Temas_De_Projetos"]) {
+		std::string Texto_Interno = item;
+		std::string Tema_Do_Item_Formatado = Texto_Interno;
+
+		std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '-', '_');
+		std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '+', 'P');
+
+		std::string Id_Do_CSS = "Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado;
+		std::string *Tema_Do_Item_Formatado_Para_Envio = new std::string(Tema_Do_Item_Formatado);
+
+		GtkWidget *Botao_De_Linguagem_Modelo;
+		Botao_De_Linguagem_Modelo = gtk_button_new_with_label(Texto_Interno.c_str());
+		gtk_widget_set_name(Botao_De_Linguagem_Modelo, Id_Do_CSS.c_str());
+		gtk_box_pack_start(GTK_BOX(Caixa_De_Botoes), Botao_De_Linguagem_Modelo, TRUE, TRUE, 0);
+		g_signal_connect(Botao_De_Linguagem_Modelo, "clicked", G_CALLBACK(Novo_Projeto_Modelo), Tema_Do_Item_Formatado_Para_Envio);
+	}
 }
 
 static void Configurando_Janela(void) {
@@ -23,46 +50,15 @@ static void Configurando_Janela(void) {
 	gtk_window_move(GTK_WINDOW(window_Novo_Projeto), Posicao_X, Posicao_Y - 100);
 }
 
-static void Novo_Projeto_ReactJs(void) {
-	gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
-	Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, "Modelo_React", "React");
-}
-
-static void Novo_Projeto_NodeJs(void) {
-	gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
-	Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, "Modelo_Node", "Node");
-}
-
-static void Novo_Projeto_HCJ(void) {
-	gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
-	Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, "Modelo_Site", "HTML CSS JS");
-}
-
-static void Novo_Projeto_CMD(void) {
-	gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
-	Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, "Modelo_CMD", "CMD");
-}
-
-static void Novo_Projeto_CPP(void) {
-	gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
-	Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, "Modelo_CPP", "C++");
-}
-
-static void Tester(void) { g_print("Testado"); }
-
 static void Ativacao_De_Aplicacao(void) {
 	Caixa_De_Botoes = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_widget_set_name(window_Novo_Projeto, "Corpo_Da_Janela");
-	gtk_widget_set_name(Caixa_De_Botoes, "Caixa_De_Inicio_Conjunto");
+	gtk_widget_set_name(Caixa_De_Botoes, "Caixa_De_Inicio_Conjunto_De_Opcoes");
 
 	Criar_Botao_Sessao_Anterior(window_Novo_Projeto, Caixa_De_Botoes, Reativacao_De_Janela_Index);
 
 	// Criacao de botoes
-	Criacao_De_Botoes("ReactJs", "Botoes_De_Acao_Individual_ReactJs", Novo_Projeto_ReactJs);
-	Criacao_De_Botoes("NodeJs", "Botoes_De_Acao_Individual_NodeJs", Novo_Projeto_NodeJs);
-	Criacao_De_Botoes("Front-End", "Botoes_De_Acao_Individual_Front_End", Novo_Projeto_HCJ);
-	Criacao_De_Botoes("CMD", "Botoes_De_Acao_Individual_CMD", Novo_Projeto_CMD);
-	Criacao_De_Botoes("C++", "Botoes_De_Acao_Individual_CPP", Novo_Projeto_CPP);
+	Criacao_De_Botoes();
 	//---------------------------------------------------------------------------------------
 
 	// Configuracoes de Janela
