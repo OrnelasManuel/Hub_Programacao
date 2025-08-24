@@ -7,6 +7,7 @@
   "Cor_De_Fundo_Da_Janela": "white",
 
   "Temas_De_Projetos": ["ReactJs", "NodeJs", "Front-End", "CMD", "C++"],
+  "Temas_De_Projetos_Desativados": ["NodeJs", "Front-End"],
 
   "Tamanho_De_Fonte": 30,
 
