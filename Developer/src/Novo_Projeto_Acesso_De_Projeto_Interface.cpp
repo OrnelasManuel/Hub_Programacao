@@ -6,7 +6,7 @@
 
 extern void Reativacao_De_Janela_Index(void);
 extern void Criar_Botao_Sessao_Anterior(GtkWidget *window_recebido, GtkWidget *Caixa_Onde_O_Botao_Vai_Ficar, void (*Funcao_De_Ativacao)());
-extern void Acesso_Ou_Criacao_De_Projeto_App(GtkWidget *window_recebido, const char *Pasta_De_Copia_Recebido, const char *Caminho_Da_Pasta_Recebida);
+extern void Acesso_Ou_Criacao_De_Projeto_App(GtkWidget *window_recebido, std::string Pasta_De_Copia_Recebido, std::string Caminho_Da_Pasta_Recebida);
 
 GtkWidget *window_Novo_Projeto;
 GtkWidget *Caixa_De_Botoes;
@@ -17,11 +17,8 @@ static void Novo_Projeto_Modelo(GtkWidget *widget, gpointer data) {
 
 	std::string Nome_Da_Pasta_Modelo = "Modelo_" + Tema_Do_Item_Formatado;
 
-	std::cout << "Valor formatado: " << Tema_Do_Item_Formatado << std::endl;
-	std::cout << "Pasta modelo: " << Nome_Da_Pasta_Modelo << std::endl;
-
-	// gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
-	// Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, Nome_Da_Pasta_Modelo.c_str(), Tema_Do_Item_Formatado.c_str());
+	gtk_container_remove(GTK_CONTAINER(window_Novo_Projeto), Caixa_De_Botoes);
+	Acesso_Ou_Criacao_De_Projeto_App(window_Novo_Projeto, Nome_Da_Pasta_Modelo.c_str(), Tema_Do_Item_Formatado.c_str());
 }
 
 static void Criacao_De_Botoes(void) {

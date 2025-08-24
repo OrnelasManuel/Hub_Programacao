@@ -14,5 +14,9 @@
     "Front-End",
     "CMD",
     "C++"
+  ],
+  "Temas_De_Projetos_Desativados": [
+    "NodeJs",
+    "Front-End"
   ]
 }

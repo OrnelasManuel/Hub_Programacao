@@ -1,8 +1,7 @@
-import "./StylePadrao.css";
-import HomePage from "./pages/Home/HomePage";
+import HomePage from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-export default function CorpoSite() {
+export default function RoutesApp() {
   return (
     <BrowserRouter>
       <Routes>
