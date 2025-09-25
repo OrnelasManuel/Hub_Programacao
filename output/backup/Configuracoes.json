@@ -7,8 +7,16 @@
   "Cor_De_Fundo_Da_Janela": "white",
 
   "Temas_De_Projetos": ["ReactJs", "NodeJs", "Front-End", "CMD", "C++"],
-  "Temas_De_Projetos_Desativados": ["NodeJs", "Front-End"],
-
+  "Temas_De_Projetos_Desativados": [
+    "NodeJs",
+    "Front-End",
+    "NodeJs",
+    "CMD",
+    "NextJs",
+    "Java",
+    "Python"
+  ],
+  
   "Tamanho_De_Fonte": 30,
 
   "Abrir_Paginas_Com_Projeto": false,

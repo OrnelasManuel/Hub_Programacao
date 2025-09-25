@@ -1,6 +1,7 @@
 #include <Variaveis_Globais.hpp>
 #include <cstdlib>
 #include <fstream>
+#include <gtk/gtk.h>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <string>

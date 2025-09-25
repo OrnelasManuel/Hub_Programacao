@@ -16,32 +16,35 @@ extern void Atribuicao_De_Valores_Em_Variaveis_Globais(void);
 extern void Construcao_De_Opcoes_De_Configuracao_Input_Texto(GtkWidget *Caixa_Opcoes_Configuracao, std::vector<GtkWidget *> &Conjunto_input);
 extern void Construcao_De_Opcoes_De_Configuracao_Input_Numero(GtkWidget *Caixa_Opcoes_Configuracao, std::vector<GtkWidget *> &Conjunto_input);
 extern void Construcao_De_Opcoes_De_Configuracao_Input_Checkbox(GtkWidget *Caixa_Opcoes_Configuracao, std::vector<GtkWidget *> &Conjunto_input);
+extern void Construcao_De_Opcoes_De_Configuracao_Input_Select(GtkWidget *Caixa_Opcoes_Configuracao, std::vector<std::vector<std::string>> &Conjunto_input);
+extern void Construcao_De_Opcoes_De_Configuracao_Input_Click(GtkWidget *Caixa_Opcoes_Configuracao);
 
 using json = nlohmann::json;
 
-GtkWidget *window_Configuracoes;
+static GtkWidget *window_Configuracoes;
 
-GtkWidget *Botao_De_Salvar_Alteracoes;
-GtkWidget *Botao_De_Restaurar_Alteracoes;
-GtkWidget *Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao;
+static GtkWidget *Botao_De_Salvar_Alteracoes;
+static GtkWidget *Botao_De_Restaurar_Alteracoes;
+static GtkWidget *Caixa_De_Botoes_Com_Funcao_Salvamento_Remocao;
 
-GtkWidget *Caixa_De_Opcoes_De_Configuracao;
+static GtkWidget *Caixa_De_Opcoes_De_Configuracao;
 
-std::vector<GtkWidget *> Conjunto_Inputs_De_Texto;
-std::vector<GtkWidget *> Conjunto_Inputs_De_Numero;
-std::vector<GtkWidget *> Conjunto_Inputs_De_Checkbox;
+static std::vector<GtkWidget *> Conjunto_Inputs_De_Texto;
+static std::vector<GtkWidget *> Conjunto_Inputs_De_Numero;
+static std::vector<GtkWidget *> Conjunto_Inputs_De_Checkbox;
+static std::vector<std::vector<std::string>> Conjunto_Inputs_De_Select;
 
 static void Removendo_Salvamentos_De_Itens_E_Reabrindo_Index(void) {
 	Conjunto_Inputs_De_Texto.clear();
 	Conjunto_Inputs_De_Numero.clear();
 	Conjunto_Inputs_De_Checkbox.clear();
+	Conjunto_Inputs_De_Select.clear();
+
+	Elementos_Invisiveis.clear();
 	Reativacao_De_Janela_Index();
 }
 
 static void Salvamento_De_Alteracoes(void) {
-
-	std::ofstream Arquivo_Padrao_Atualizado("./data/Configuracoes.json");
-
 	for (size_t index = 0; index < Conjunto_Inputs_De_Texto.size(); ++index) {
 		GtkWidget *Input_De_Texto = Conjunto_Inputs_De_Texto[index];
 		GtkEntry *Input_De_Texto_Convertendo = GTK_ENTRY(Input_De_Texto);
@@ -68,39 +71,61 @@ static void Salvamento_De_Alteracoes(void) {
 		Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Checkbox[index]] = Boleano_Convertido_Input_De_Checkbox;
 	}
 
-	Arquivo_Padrao_Atualizado << Configuracao_Universal_JSON.dump(4);
+	for (size_t index = 0; index < Conjunto_Inputs_De_Select.size(); ++index) {
+		Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Select[index]] = Conjunto_Inputs_De_Select[index];
+	}
 
-	Arquivo_Padrao_Atualizado.close();
+	Configuracao_Universal.Atualizar_Configuracoes(Configuracao_Universal_JSON);
 
-	Atribuicao_De_Valores_Em_Variaveis_Globais();
-
-	Estilizacao_De_Conteudo();
+	gtk_container_remove(GTK_CONTAINER(window_Configuracoes), Caixa_De_Opcoes_De_Configuracao);
+	Removendo_Salvamentos_De_Itens_E_Reabrindo_Index();
 }
 
 static void Restauracao_Para_Padrao(void) {
-	std::ofstream Arquivo_Estilizacao_Atualizado("./data/Estilizacao.json");
-	std::ofstream Arquivo_Padrao_Atualizado("./data/Configuracoes.json");
-
-	Configuracao_Universal_JSON["Caiminho_Do_Local_Com_Linguagens"] = "C:\\Users\\Usuario\\Desktop\\Temp\\Programacao";
-	Configuracao_Universal_JSON["Abrir_Paginas_Com_Projeto"] = true;
-
 	Configuracao_Universal_JSON["Fonte_Padrao_De_Programa"] = "Consolas";
 	Configuracao_Universal_JSON["Fonte_Saudacao_De_Programa"] = "Comic Sans MS";
 	Configuracao_Universal_JSON["Cor_Da_Fonte"] = "white";
 	Configuracao_Universal_JSON["Cor_Da_Borda"] = "white";
 	Configuracao_Universal_JSON["Cor_De_Fundo_Da_Janela"] = "black";
+	Configuracao_Universal_JSON["Caiminho_Do_Local_Com_Linguagens"] = "C:\\Users\\Usuario\\Desktop\\Temp\\Programacao";
+
+	Configuracao_Universal_JSON["Temas_De_Projetos_Desativados"] = json::array();
+
 	Configuracao_Universal_JSON["Imagens_Ilustrativas_De_Linguagem"] = true;
-	Configuracao_Universal_JSON["Tamanho_De_Fonte"] = 25;
+	Configuracao_Universal_JSON["Abrir_Paginas_Com_Projeto"] = true;
 
-	Arquivo_Padrao_Atualizado << Configuracao_Universal_JSON.dump(2);
-	Arquivo_Estilizacao_Atualizado << Configuracao_Universal_JSON.dump(2);
+	Configuracao_Universal_JSON["Tamanho_De_Fonte"] = 30;
 
-	Arquivo_Padrao_Atualizado.close();
-	Arquivo_Estilizacao_Atualizado.close();
+	for (size_t index = 0; index < Conjunto_Inputs_De_Texto.size(); ++index) {
+		GtkWidget *Input_De_Texto = Conjunto_Inputs_De_Texto[index];
+		GtkEntry *Input_De_Texto_Convertendo = GTK_ENTRY(Input_De_Texto);
 
-	Atribuicao_De_Valores_Em_Variaveis_Globais();
+		std::string Valor = Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Texto[index]];
 
-	Estilizacao_De_Conteudo();
+		gtk_entry_set_text(Input_De_Texto_Convertendo, Valor.c_str());
+	}
+
+	for (size_t index = 0; index < Conjunto_Inputs_De_Numero.size(); ++index) {
+		GtkWidget *Input_De_Numero = Conjunto_Inputs_De_Numero[index];
+		GtkEntry *Input_De_Numero_Convertendo = GTK_ENTRY(Input_De_Numero);
+
+		int Valor = Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Numero[index]];
+
+		gtk_entry_set_text(Input_De_Numero_Convertendo, std::to_string(Valor).c_str());
+	}
+
+	for (size_t index = 0; index < Conjunto_Inputs_De_Checkbox.size(); ++index) {
+		GtkWidget *Input_De_Checkbox = Conjunto_Inputs_De_Checkbox[index];
+		GtkToggleButton *Input_De_Checkbox_Convertendo = GTK_TOGGLE_BUTTON(Input_De_Checkbox);
+
+		bool Valor = Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Checkbox[index]];
+
+		gtk_toggle_button_set_active(Input_De_Checkbox_Convertendo, Valor ? TRUE : FALSE);
+	}
+
+	for (size_t index = 0; index < Conjunto_Inputs_De_Select.size(); ++index) {
+		Conjunto_Inputs_De_Select[index] = Configuracao_Universal_JSON[Criacao_De_Configuracao.Configuracoes_Do_Tipo_Select[index]];
+	}
 }
 
 static void Ativacao_De_Elementos(void) {
@@ -163,6 +188,8 @@ static void Ativacao_De_Aplicacao(void) {
 	Construcao_De_Opcoes_De_Configuracao_Input_Texto(Caixa_De_Opcoes_De_Configuracao, Conjunto_Inputs_De_Texto);
 	Construcao_De_Opcoes_De_Configuracao_Input_Numero(Caixa_De_Opcoes_De_Configuracao, Conjunto_Inputs_De_Numero);
 	Construcao_De_Opcoes_De_Configuracao_Input_Checkbox(Caixa_De_Opcoes_De_Configuracao, Conjunto_Inputs_De_Checkbox);
+	Construcao_De_Opcoes_De_Configuracao_Input_Select(Caixa_De_Opcoes_De_Configuracao, Conjunto_Inputs_De_Select);
+	Construcao_De_Opcoes_De_Configuracao_Input_Click(Caixa_De_Opcoes_De_Configuracao);
 
 	// Indentacao de elementos
 	Indentacao_Do_Conteudo();
@@ -171,7 +198,16 @@ static void Ativacao_De_Aplicacao(void) {
 	gtk_widget_show_all(window_Configuracoes);
 }
 
+static void Deixar_Janela_Invisivel(void) {
+	for (auto &index : Elementos_Invisiveis) {
+		gtk_widget_hide(index);
+	}
+}
+
 void Configuracao_Grafico(GtkWidget *window_recebido) {
 	window_Configuracoes = window_recebido;
 	Ativacao_De_Aplicacao();
+
+	g_signal_connect(window_Configuracoes, "button-press-event", G_CALLBACK(Deixar_Janela_Invisivel), NULL);
+	Deixar_Janela_Invisivel();
 }

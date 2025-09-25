@@ -1,0 +1,181 @@
+{
+  "main": {
+    "id": "76d0e5a42fe69eb3",
+    "type": "split",
+    "children": [
+      {
+        "id": "8b13b2cf06e3ee87",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "aba3413cbca41202",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Vizualizacao Geral.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Vizualizacao Geral"
+            }
+          },
+          {
+            "id": "61dc707315d6bf2c",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Modificacoes/Nova opcao de configuracao.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Nova opcao de configuracao"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "55cb559e53bd20be",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "fe89be88b41f6416",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "alphabetical",
+            "autoReveal": false
+          },
+          "icon": "lucide-folder-closed",
+          "title": "Files"
+        }
+      },
+      {
+        "id": "420e43a4e3a745b5",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          },
+          "icon": "lucide-search",
+          "title": "Search"
+        }
+      },
+      {
+        "id": "1c5fcf40b693919f",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-tags",
+          "title": "Tags"
+        }
+      },
+      {
+        "id": "966b345ec296291d",
+        "type": "leaf",
+        "state": {
+          "type": "bookmarks",
+          "state": {},
+          "icon": "lucide-bookmark",
+          "title": "Bookmarks"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "right": {
+    "id": "41e665be90e3c7f7",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "4afd1568d967c2ea",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "file": "Identificadores/Nome do novo projeto.md",
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-coming-in",
+          "title": "Backlinks"
+        }
+      },
+      {
+        "id": "75b245e8572422ad",
+        "type": "leaf",
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "file": "Identificadores/Nome do novo projeto.md",
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-going-out",
+          "title": "Outgoing links"
+        }
+      },
+      {
+        "id": "2d4dc80408e87497",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "file": "Identificadores/Nome do novo projeto.md",
+            "followCursor": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-list",
+          "title": "Outline"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-excalidraw-plugin:New drawing": false
+    }
+  },
+  "active": "61dc707315d6bf2c",
+  "lastOpenFiles": [
+    "Modificacoes/Nova opcao de configuracao.md",
+    "Identificadores/Nome do novo projeto.md",
+    "Identificadores/Nome do novo projeto.sync-conflict-20250922-220706-W72ZNFD.md",
+    "Identificadores/Nome do novo projeto.sync-conflict-20250922-220625-W72ZNFD.md",
+    "`=this.Tipo_De_Input`.md",
+    "Vizualizacao Geral.md",
+    "Vizualizacao Geral.png",
+    "Apresentação.md",
+    "Identificadores do Programa.md"
+  ]
+}

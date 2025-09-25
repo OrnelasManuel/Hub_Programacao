@@ -25,7 +25,8 @@ for /R modules %%f in (*.cpp) do (
     set FILES=!FILES! %%f
 )
 
-gcc -o ../output/%Nome_Do_Projeto% main.cpp src/*.cpp !FILES! config/resources.res -I include %gtk_cflags% %gtk_libs% -lstdc++ -mwindows
+gcc -o ../output/%Nome_Do_Projeto% main.cpp src/*.cpp !FILES! config/resources.res -I include %gtk_cflags% %gtk_libs% -lstdc++ 
+@REM gcc -o ../output/%Nome_Do_Projeto% main.cpp src/*.cpp !FILES! config/resources.res -I include %gtk_cflags% %gtk_libs% -lstdc++ -mwindows
 @REM gcc -o ../output/%Nome_Do_Projeto% main.cpp src/*.cpp modules/*.cpp config/resources.res -I include %gtk_cflags% %gtk_libs% -lstdc++ 
 
 cd config

@@ -13,6 +13,8 @@
     "Imagens_Ilustrativas_De_Linguagem"
   ],
 
+  "Configuracoes_Do_Tipo_Select": ["Temas_De_Projetos_Desativados"],
+
   "Configuracoes_Do_Tipo_Texto_Introducao": [
     {
       "Nome": "Pasta principal",
@@ -62,6 +64,20 @@
       "Nome": "Imagens",
       "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
       "Nome_Da_Configuracao": "Imagens_Ilustrativas_De_Linguagem"
+    }
+  ],
+  "Configuracoes_Do_Tipo_Select_Introducao": [
+    {
+      "Nome": "Pastas ocultas",
+      "Classe_Do_Elemento": "Input_De_Caminho_Das_Configuracoes",
+      "Nome_Da_Configuracao": "Temas_De_Projetos_Desativados"
+    }
+  ],
+  "Configuracoes_Do_Tipo_Click_Introducao": [
+    {
+      "Nome": "Editor CSS",
+      "Classe_Do_Elemento": "Botao_Abrir_CSS_Das_Configuracoes",
+      "Funcao": "Abrir_CSS"
     }
   ]
 }
