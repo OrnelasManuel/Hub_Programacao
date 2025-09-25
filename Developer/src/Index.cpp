@@ -1,6 +1,7 @@
 #include <Variaveis_Globais.hpp>
 #include <cstdlib>
 #include <ctime>
+#include <filesystem>
 #include <gtk/gtk.h>
 #include <iostream>
 #include <pango/pango.h>
@@ -9,6 +10,9 @@ extern void Novo_Projeto_Grafico(GtkWidget *window_recebido);
 extern void Configuracao_Grafico(GtkWidget *window_recebido);
 extern void Estilizacao_De_Conteudo(void);
 extern void Atribuicao_De_Valores_Em_Variaveis_Globais(void);
+
+extern void MODULO_DE_TESTE(GtkWidget *window_recebido);
+extern void Input_Realtime_CSS(void);
 
 // Criacao de Elementos
 GtkApplication *Aplicacao;
@@ -48,6 +52,23 @@ static int Escolha_Aleatoria(int Numero_Sorvetado_Maximo) {
 	srand(static_cast<unsigned>(time(0)));
 	int numeroAleatorio = rand() % Numero_Sorvetado_Maximo;
 	return numeroAleatorio;
+}
+
+static void Atribuicao_De_Valores_Globais(void) {
+	g_print("Ativado\n");
+	std::string Diretorio_De_Pastas = Configuracao_Universal_JSON["Caiminho_Do_Local_Com_Linguagens"];
+
+	try {
+		for (const auto &entry : std::filesystem::directory_iterator(Diretorio_De_Pastas)) {
+			if (entry.is_directory()) {
+				std::string Nome_Da_Pasta = entry.path().filename().string();
+				std::replace(Nome_Da_Pasta.begin(), Nome_Da_Pasta.end(), '_', ' ');
+				Pastas_Existentes.push_back(Nome_Da_Pasta);
+			}
+		}
+	} catch (const std::filesystem::filesystem_error &e) {
+		std::cerr << "Erro ao acessar o diretório: " << e.what() << std::endl;
+	}
 }
 
 static void Ativacao_De_Elementos(void) {
@@ -141,8 +162,15 @@ void Index_Grafico(GtkApplication *Aplicacao_Recebida, gpointer user_data) {
 	Aplicacao = Aplicacao_Recebida;
 	window = gtk_application_window_new(Aplicacao);
 	Atribuicao_De_Valores_Em_Variaveis_Globais();
+	Atribuicao_De_Valores_Globais();
+
+	std::cout << "Aplicacao: " << Aplicacao << std::endl;
+
+	// MODULO_DE_TESTE(window);
 
 	Ativacao_De_Aplicacao();
+
+	// Input_Realtime_CSS();
 
 	gtk_window_get_position(GTK_WINDOW(window), &Posicao_X, &Posicao_Y);
 }

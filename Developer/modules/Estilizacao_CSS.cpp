@@ -6,307 +6,312 @@
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
+std::string String_CSS;
 
 void Estilizacao_De_Conteudo(void) {
 	// Criacao de Folha CSS
 	GtkCssProvider *Folha_CSS_Principal = gtk_css_provider_new();
 	//---------------------------------------------------------------------------------------
+	// Criacao de string CSS formatada
+	String_CSS = "#Corpo_Da_Janela {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "    color: " +
+	             Configuracao_Universal.getCor_Fonte() +
+	             ";\n"
+	             "}\n\n"
 
-	// Criacao de string CSS
-	std::string String_CSS = "#Corpo_Da_Janela {"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "color: " +
-	                         Configuracao_Universal.Cor_Da_Fonte +
-	                         ";"
-	                         "}"
+	             "#Texto_De_Saudacao * {\n"
+	             "    margin-top: 25px;\n"
+	             "}\n\n"
 
-	                         "#Texto_De_Saudacao *{"
-	                         "margin-top: 25px;"
-	                         "}"
+	             "#Texto_De_Saudacao {\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte_Grande()) +
+	             "px;\n"
+	             "    font-family: '" +
+	             Configuracao_Universal.getFonte_Saudacao() +
+	             "';\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "    color: " +
+	             Configuracao_Universal.getCor_Fonte() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Texto_De_Saudacao {"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte_Grande) +
-	                         "px;"
-	                         "font-family: '" +
-	                         Configuracao_Universal.Fonte_Saudacao_De_Programa +
-	                         "';"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         "; "
-	                         "color: " +
-	                         Configuracao_Universal.Cor_Da_Fonte +
-	                         "; "
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes {\n"
+	             "    box-shadow: none;\n"
+	             "    border: 1px solid " +
+	             Configuracao_Universal.getCor_Borda() +
+	             ";\n"
+	             "    margin: 10px;\n"
+	             "    border-radius: 0px;\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes {"
-	                         "box-shadow: none;"
-	                         "border: 1px solid " +
-	                         Configuracao_Universal.Cor_Da_Borda +
-	                         ";"
-	                         "margin: 10px;"
-	                         "border-radius: 0px;"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes label {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "    color: " +
+	             Configuracao_Universal.getCor_Fonte() +
+	             ";\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte()) +
+	             "px;\n"
+	             "    font-family: '" +
+	             Configuracao_Universal.getFonte_Padrao() +
+	             "';\n"
+	             "    padding: 25px;\n"
+	             "    margin: 0;\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes label {"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "color: " +
-	                         Configuracao_Universal.Cor_Da_Fonte +
-	                         ";"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
-	                         "px;"
-	                         "font-family: '" +
-	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
-	                         "';"
-	                         "padding: 25px;"
-	                         "margin: 0;"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes * {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto #Botao_De_Opcoes_De_Projetos_Existentes *{"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "eventbox {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "eventbox{"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Botoes_De_Acao_Individual {\n"
+	             "    padding: 0;\n"
+	             "    border: 1px solid " +
+	             Configuracao_Universal.getCor_Borda() +
+	             ";\n"
+	             "    margin: 10px;\n"
+	             "    border-radius: 0px;\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Botoes_De_Acao_Individual {"
-	                         "padding: 0;"
-	                         "border: 1px solid " +
-	                         Configuracao_Universal.Cor_Da_Borda +
-	                         ";"
-	                         "margin: 10px;"
-	                         "border-radius: 0px;"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Botoes_De_Acao_Individual label {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "    color: " +
+	             Configuracao_Universal.getCor_Fonte() +
+	             ";\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte()) +
+	             "px;\n"
+	             "    font-family: '" +
+	             Configuracao_Universal.getFonte_Padrao() +
+	             "';\n"
+	             "    padding: 0;\n"
+	             "    margin: 0;\n"
+	             "    background-repeat: no-repeat;\n"
+	             "    background-position: left;\n"
+	             "    background-size: contain;\n"
+	             "}\n\n"
 
-	                         "#Botoes_De_Acao_Individual label {"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "color: " +
-	                         Configuracao_Universal.Cor_Da_Fonte +
-	                         ";"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
-	                         "px;"
-	                         "font-family: '" +
-	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
-	                         "';"
-	                         "padding: 0;"
-	                         "margin: 0;"
-	                         "background-repeat: no-repeat;"
-	                         "background-position: left;"
-	                         "background-size: contain;"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto {\n"
+	             "    padding: 0;\n"
+	             "    border: 0px solid " +
+	             Configuracao_Universal.getCor_Borda() +
+	             ";\n"
+	             "    margin: 0;\n"
+	             "    border-radius: 0px;\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto {"
-	                         "padding: 0;"
-	                         "border: 0px solid " +
-	                         Configuracao_Universal.Cor_Da_Borda +
-	                         ";"
-	                         "margin: 0;"
-	                         "border-radius: 0px;"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto > button {\n"
+	             "    padding: 0;\n"
+	             "    border: 1px solid " +
+	             Configuracao_Universal.getCor_Borda() +
+	             ";\n"
+	             "    margin: 10px;\n"
+	             "    border-radius: 0px;\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto > button{"
-	                         "padding: 0;"
-	                         "border: 1px solid " +
-	                         Configuracao_Universal.Cor_Da_Borda +
-	                         ";"
-	                         "margin: 10px;"
-	                         "border-radius: 0px;"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Label_De_Texto_Das_Configuracoes_Com_Input {\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte()) +
+	             "px;\n"
+	             "    font-family: '" +
+	             Configuracao_Universal.getFonte_Padrao() +
+	             "';\n"
+	             "}\n\n"
 
-	                         "#Label_De_Texto_Das_Configuracoes_Com_Input {"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
-	                         "px;"
-	                         "font-family: '" +
-	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
-	                         "';"
-	                         "}"
+	             "#Inputs_Padrao_Configuracoes {\n"
+	             "    margin-bottom: 5px;\n"
+	             "}\n\n"
 
-	                         "#Inputs_Padrao_Configuracoes {"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
-	                         "px;"
-	                         "font-family: '" +
-	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
-	                         "';"
-	                         "}"
+	             "#Input_De_CSS_Rum_Time {\n"
+	             "    font-family: 'Consolas';\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte_Pequeno()) +
+	             "px;\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Opcoes_De_Configuracoes {"
-	                         "margin: 0 20px;"
-	                         "}"
+	             "#Caixa_De_Opcoes_De_Configuracoes {\n"
+	             "    margin: 0 20px;\n"
+	             "}\n\n"
 
-	                         "#Conjunto_Label_Input_Criacao_De_Projeto_Nome {"
-	                         "margin: 0 20px;"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
-	                         "px;"
-	                         "font-family: '" +
-	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
-	                         "';"
-	                         "}"
+	             "#Conjunto_Label_Input_Criacao_De_Projeto_Nome {\n"
+	             "    margin: 0 20px;\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte()) +
+	             "px;\n"
+	             "    font-family: '" +
+	             Configuracao_Universal.getFonte_Padrao() +
+	             "';\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto label {"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "margin: 0;"
-	                         "color: " +
-	                         Configuracao_Universal.Cor_Da_Fonte +
-	                         ";"
-	                         "padding: 0;"
-	                         "background-repeat: no-repeat, no-repeat;"
-	                         "background-position: left top, right bottom; "
-	                         "background-size: contain, contain;"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto label {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "    margin: 0;\n"
+	             "    color: " +
+	             Configuracao_Universal.getCor_Fonte() +
+	             ";\n"
+	             "    padding: 0;\n"
+	             "    background-repeat: no-repeat, no-repeat;\n"
+	             "    background-position: left top, right bottom;\n"
+	             "    background-size: contain, contain;\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes {"
-	                         "box-shadow: none;"
-	                         "border: 1px solid " +
-	                         Configuracao_Universal.Cor_Da_Borda +
-	                         ";"
-	                         "margin: 10px;"
-	                         "border-radius: 0px;"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes {\n"
+	             "    box-shadow: none;\n"
+	             "    border: 1px solid " +
+	             Configuracao_Universal.getCor_Borda() +
+	             ";\n"
+	             "    margin: 10px;\n"
+	             "    border-radius: 0px;\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes label {"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "color: " +
-	                         Configuracao_Universal.Cor_Da_Fonte +
-	                         ";"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
-	                         "px;"
-	                         "font-family: '" +
-	                         Configuracao_Universal.Fonte_Padrao_De_Programa +
-	                         "';"
-	                         "padding: 25px;"
-	                         "margin: 0;"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes label {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "    color: " +
+	             Configuracao_Universal.getCor_Fonte() +
+	             ";\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte()) +
+	             "px;\n"
+	             "    font-family: '" +
+	             Configuracao_Universal.getFonte_Padrao() +
+	             "';\n"
+	             "    padding: 25px;\n"
+	             "    margin: 0;\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes *{"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto_De_Opcoes #Botao_De_Opcoes_De_Projetos_Existentes * {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes {"
-	                         "padding: 0;"
-	                         "border: 0px solid " +
-	                         Configuracao_Universal.Cor_Da_Borda +
-	                         ";"
-	                         "margin: 0;"
-	                         "border-radius: 0px;"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto_De_Opcoes {\n"
+	             "    padding: 0;\n"
+	             "    border: 0px solid " +
+	             Configuracao_Universal.getCor_Borda() +
+	             ";\n"
+	             "    margin: 0;\n"
+	             "    border-radius: 0px;\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes > button{"
-	                         "padding: 0;"
-	                         "border: 1px solid " +
-	                         Configuracao_Universal.Cor_Da_Borda +
-	                         ";"
-	                         "margin: 10px;"
-	                         "border-radius: 0px;"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto_De_Opcoes > button {\n"
+	             "    padding: 0;\n"
+	             "    border: 1px solid " +
+	             Configuracao_Universal.getCor_Borda() +
+	             ";\n"
+	             "    margin: 10px;\n"
+	             "    border-radius: 0px;\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes label {"
-	                         "background-color: " +
-	                         Configuracao_Universal.Cor_De_Fundo_Da_Janela +
-	                         ";"
-	                         "margin: 0;"
-	                         "color: " +
-	                         Configuracao_Universal.Cor_Da_Fonte +
-	                         ";"
-	                         "padding: 0;"
-	                         "background-repeat: no-repeat, no-repeat;"
-	                         "background-position: left top, right bottom; "
-	                         "background-size: contain, contain;"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto_De_Opcoes label {\n"
+	             "    background-color: " +
+	             Configuracao_Universal.getCor_Fundo_Janela() +
+	             ";\n"
+	             "    margin: 0;\n"
+	             "    color: " +
+	             Configuracao_Universal.getCor_Fonte() +
+	             ";\n"
+	             "    padding: 0;\n"
+	             "    background-repeat: no-repeat, no-repeat;\n"
+	             "    background-position: left top, right bottom;\n"
+	             "    background-size: contain, contain;\n"
+	             "}\n\n"
 
-	                         "#Caixa_De_Inicio_Conjunto_De_Opcoes button label {"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte_Pequeno) +
-	                         "px;"
-	                         "}"
+	             "#Caixa_De_Inicio_Conjunto_De_Opcoes button label {\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte_Pequeno()) +
+	             "px;\n"
+	             "}\n\n"
 
-	                         "#Input_De_Caminho_Das_Configuracoes{"
-	                         "font-size: " +
-	                         std::to_string(Configuracao_Universal.Tamanho_Da_Fonte_Pequeno) +
-	                         "px;"
-	                         "}"
+	             "#Input_De_Caminho_Das_Configuracoes, #Botao_Abrir_CSS_Das_Configuracoes > label{\n"
+	             "    font-size: " +
+	             std::to_string(Configuracao_Universal.getTamanho_Fonte_Pequeno()) +
+	             "px;\n"
+	             "}\n\n"
 
-	                         "#Botoes_De_Acao_Individual label{"
-	                         "padding: 10px;"
-	                         "}";
+	             "#Botoes_De_Acao_Individual label {\n"
+	             "    padding: 10px;\n"
+	             "}\n\n";
 
 	//---------------------------------------------------------------------------------------
 
-	if (Configuracao_Universal.Imagens_Ilustrativas_De_Linguagem) {
-		for (const auto &item : Configuracao_Universal_JSON["Temas_De_Projetos"]) {
+	if (Configuracao_Universal.getImagens_Ilustrativas_Linguagem()) {
+		for (const auto &item : Pastas_Existentes) {
 			std::string Texto_Interno = item;
 			std::string Tema_Do_Item_Formatado = Texto_Interno;
 
 			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '-', '_');
 			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '+', 'P');
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), ' ', '_');
 
-			String_CSS += "#Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado + " label {background-image: url('./Aplication_Images/" + Tema_Do_Item_Formatado +
+			String_CSS += "#Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado + " label {\n    background-image: url('./Aplication_Images/Icons_Projects/" +
+			              Tema_Do_Item_Formatado +
 			              ".png'), "
-			              "url('./Aplication_Images/" +
+			              "url('./Aplication_Images/Icons_Projects/" +
 			              Tema_Do_Item_Formatado +
 			              ".png')"
-			              "; }";
+			              ";\n}\n\n";
 		}
 
 	} else {
-		for (const auto &item : Configuracao_Universal_JSON["Temas_De_Projetos"]) {
+		for (const auto &item : Pastas_Existentes) {
 			std::string Texto_Interno = item;
 			std::string Tema_Do_Item_Formatado = Texto_Interno;
 
 			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '-', '_');
 			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '+', 'P');
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), ' ', '_');
 
-			String_CSS += "#Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado + " label {background-image: none;}";
+			String_CSS += "#Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado + " label {\n    background-image: none;\n}\n\n";
 		}
 
-		String_CSS += "#Caixa_De_Inicio_Conjunto_De_Opcoes button label {"
+		String_CSS += "#Caixa_De_Inicio_Conjunto_De_Opcoes button label {\n"
 		              "font-size: " +
-		              std::to_string(Configuracao_Universal.Tamanho_Da_Fonte) +
-		              "px;"
-		              "}";
+		              std::to_string(Configuracao_Universal.getTamanho_Fonte()) +
+		              "px;\n"
+		              "}\n\n";
 	}
 
 	// Adicionando Estilos a Folha CSS

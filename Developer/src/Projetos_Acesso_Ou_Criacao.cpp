@@ -66,7 +66,7 @@ static void Carregamento_De_Copias_De_Arquivos_Modelo(const std::string &comando
 			std::system(comando.c_str());
 		}
 
-		Configurando_Projeto_Para_Abrir(Nome_Do_Modelo_De_Projeto.c_str(), Configuracao_Universal.Abrir_Paginas_Com_Projeto);
+		Configurando_Projeto_Para_Abrir(Nome_Do_Modelo_De_Projeto.c_str(), Configuracao_Universal.getAbrir_Paginas_Projeto());
 	}
 
 	Loading_Element_Grafico(window_Projeto_Acesso_Ou_Criacao, false);
@@ -82,9 +82,9 @@ static void Configuracao_De_Projeto(void) {
 	if (Tipo_De_Acesso_Sendo_Feito == "Criacao") {
 		Input_Nome_Do_Projeto_Convertendo = GTK_ENTRY(Input_Nome_Do_Projeto);
 		Valor_Input_Nome_Do_Projeto_Convertendo = gtk_entry_get_text(Input_Nome_Do_Projeto_Convertendo);
-		Localizacao_Do_Projeto = Configuracao_Universal.Caminho_Pasta_Principal + "\\" + Caminho_Da_Pasta + "\\" + Valor_Input_Nome_Do_Projeto_Convertendo;
+		Localizacao_Do_Projeto = Configuracao_Universal.getCaminho_Pasta_Principal() + "\\" + Caminho_Da_Pasta + "\\" + Valor_Input_Nome_Do_Projeto_Convertendo;
 
-		Copiar_Arquivos_Para_Nova_Localizacao = std::string("xcopy \"") + ".\\models\\" + Pasta_De_Copia + "\" \"" + Configuracao_Universal.Caminho_Pasta_Principal + "\\" +
+		Copiar_Arquivos_Para_Nova_Localizacao = std::string("xcopy \"") + ".\\models\\" + Pasta_De_Copia + "\" \"" + Configuracao_Universal.getCaminho_Pasta_Principal() + "\\" +
 		                                        Caminho_Da_Pasta + "\\" + Valor_Input_Nome_Do_Projeto_Convertendo + "\" /E /I /Y";
 
 		std::cout << "Comando: " << Copiar_Arquivos_Para_Nova_Localizacao << std::endl;
@@ -92,7 +92,7 @@ static void Configuracao_De_Projeto(void) {
 		system("pause");
 
 	} else if (Tipo_De_Acesso_Sendo_Feito == "Acesso" || Tipo_De_Acesso_Sendo_Feito == "Remocao") {
-		Localizacao_Do_Projeto = Configuracao_Universal.Caminho_Pasta_Principal + "\\" + Caminho_Da_Pasta + "\\" + Projeto_Escolhido_Por_Clique;
+		Localizacao_Do_Projeto = Configuracao_Universal.getCaminho_Pasta_Principal() + "\\" + Caminho_Da_Pasta + "\\" + Projeto_Escolhido_Por_Clique;
 	}
 
 	gtk_container_remove(GTK_CONTAINER(window_Projeto_Acesso_Ou_Criacao), Caixa_De_Input_Criacao);
@@ -149,7 +149,7 @@ static void Ativacao_De_Aplicacao(void) {
 		gtk_box_pack_end(GTK_BOX(Caixa_De_Input_Criacao), Caixa_De_Botao_Com_Prosseguir_Criacao, FALSE, FALSE, 0);
 	}
 	if (Tipo_De_Acesso_Sendo_Feito == "Acesso" || Tipo_De_Acesso_Sendo_Feito == "Remocao") {
-		std::string Caminho_Para_Obter_Pastas = Configuracao_Universal.Caminho_Pasta_Principal + "\\" + Caminho_Da_Pasta;
+		std::string Caminho_Para_Obter_Pastas = Configuracao_Universal.getCaminho_Pasta_Principal() + "\\" + Caminho_Da_Pasta;
 
 		int Quantia_De_Pastas = 0;
 

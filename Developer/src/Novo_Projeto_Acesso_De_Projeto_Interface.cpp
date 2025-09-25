@@ -22,26 +22,38 @@ static void Novo_Projeto_Modelo(GtkWidget *widget, gpointer data) {
 }
 
 static void Criacao_De_Botoes(void) {
-	for (const auto &item : Configuracao_Universal_JSON["Temas_De_Projetos"]) {
-		std::string Texto_Interno = item;
-		std::string Tema_Do_Item_Formatado = Texto_Interno;
+	for (const auto &item : Pastas_Existentes) {
+		if (std::find(Configuracao_Universal.getTemas_Projetos_Desativados().begin(), Configuracao_Universal.getTemas_Projetos_Desativados().end(), item) ==
+		    Configuracao_Universal.getTemas_Projetos_Desativados().end()) {
+			// if (std::find(Configuracao_Universal_JSON["Temas_De_Projetos_Desativados"].begin(), Configuracao_Universal_JSON["Temas_De_Projetos_Desativados"].end(), item) ==
+			// Configuracao_Universal_JSON["Temas_De_Projetos_Desativados"].end()) {
+			std::string Texto_Interno = item;
+			std::string Tema_Do_Item_Formatado = Texto_Interno;
 
-		std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '-', '_');
-		std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '+', 'P');
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '-', '_');
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), '+', 'P');
+			std::replace(Tema_Do_Item_Formatado.begin(), Tema_Do_Item_Formatado.end(), ' ', '_');
 
-		std::string Id_Do_CSS = "Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado;
-		std::string *Tema_Do_Item_Formatado_Para_Envio = new std::string(Tema_Do_Item_Formatado);
+			std::string Id_Do_CSS = "Botoes_De_Acao_Individual_" + Tema_Do_Item_Formatado;
+			std::string *Tema_Do_Item_Formatado_Para_Envio = new std::string(Tema_Do_Item_Formatado);
 
-		GtkWidget *Botao_De_Linguagem_Modelo;
-		Botao_De_Linguagem_Modelo = gtk_button_new_with_label(Texto_Interno.c_str());
-		gtk_widget_set_name(Botao_De_Linguagem_Modelo, Id_Do_CSS.c_str());
-		gtk_box_pack_start(GTK_BOX(Caixa_De_Botoes), Botao_De_Linguagem_Modelo, TRUE, TRUE, 0);
-		g_signal_connect(Botao_De_Linguagem_Modelo, "clicked", G_CALLBACK(Novo_Projeto_Modelo), Tema_Do_Item_Formatado_Para_Envio);
+			GtkWidget *Botao_De_Linguagem_Modelo;
+			Botao_De_Linguagem_Modelo = gtk_button_new_with_label(Texto_Interno.c_str());
+			gtk_widget_set_name(Botao_De_Linguagem_Modelo, Id_Do_CSS.c_str());
+			gtk_box_pack_start(GTK_BOX(Caixa_De_Botoes), Botao_De_Linguagem_Modelo, TRUE, TRUE, 0);
+			g_signal_connect(Botao_De_Linguagem_Modelo, "clicked", G_CALLBACK(Novo_Projeto_Modelo), Tema_Do_Item_Formatado_Para_Envio);
+		}
 	}
 }
 
 static void Configurando_Janela(void) {
-	gtk_window_set_title(GTK_WINDOW(window_Novo_Projeto), "Criando novo projeto");
+	if (Tipo_De_Acesso_Sendo_Feito == "Criacao") {
+		gtk_window_set_title(GTK_WINDOW(window_Novo_Projeto), "Criando novo projeto");
+	} else if (Tipo_De_Acesso_Sendo_Feito == "Acesso") {
+		gtk_window_set_title(GTK_WINDOW(window_Novo_Projeto), "Acessando projeto existente");
+	} else if (Tipo_De_Acesso_Sendo_Feito == "Remocao") {
+		gtk_window_set_title(GTK_WINDOW(window_Novo_Projeto), "Removendo projeto existente");
+	}
 	gtk_window_set_resizable(GTK_WINDOW(window_Novo_Projeto), true);
 	gtk_window_resize(GTK_WINDOW(window_Novo_Projeto), 500, 700);
 	gtk_window_move(GTK_WINDOW(window_Novo_Projeto), Posicao_X, Posicao_Y - 100);
